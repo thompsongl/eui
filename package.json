@@ -16,6 +16,7 @@
     "build-docs": "webpack --config=src-docs/webpack.config.js",
     "build": "yarn extract-i18n-strings && node ./scripts/compile-clean.js && node ./scripts/compile-eui.js && node ./scripts/compile-scss.js $npm_package_name",
     "extract-i18n-strings": "node ./scripts/babel/fetch-i18n-strings",
+    "link-eui": "node ./scripts/link-eui",
     "lint": "yarn lint-es && yarn lint-ts && yarn lint-sass && yarn lint-framer",
     "lint-fix": "yarn lint-es-fix && yarn lint-ts-fix",
     "lint-es": "eslint --cache --ignore-pattern \"**/*.snap.js\" \"src/**/*.js\" \"src-docs/**/*.js\"",
@@ -179,6 +180,7 @@
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14",
+    "yargs": "^13.2.2",
     "yeoman-generator": "^2.0.1",
     "yo": "^2.0.0"
   },
