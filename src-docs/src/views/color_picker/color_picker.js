@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
+import { withTheme } from '../../components';
+
 import { EuiColorPicker, EuiFormRow } from '../../../../src/components';
 import { isValidHex } from '../../../../src/services';
 
-export class ColorPicker extends Component {
+class _ColorPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,6 +19,7 @@ export class ColorPicker extends Component {
 
   render() {
     const hasErrors = !isValidHex(this.state.color) && this.state.color !== '';
+    console.log(this.props.theme);
 
     let errors;
     if (hasErrors) {
@@ -34,3 +37,5 @@ export class ColorPicker extends Component {
     );
   }
 }
+
+export const ColorPicker = withTheme(_ColorPicker);
