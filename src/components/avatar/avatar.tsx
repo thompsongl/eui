@@ -1,24 +1,35 @@
 import React, { HTMLAttributes, FunctionComponent } from 'react';
 import { CommonProps, keysOf } from '../common';
 import classNames from 'classnames';
+import { css } from 'astroturf';
 
 import { isColorDark, hexToRgb } from '../../services/color';
 import { VISUALIZATION_COLORS, toInitials } from '../../services';
 
+const light = css`
+  @import 'avatar_light.module';
+`;
+
+const dark = css`
+  @import 'avatar_dark.module';
+`;
+
+const styles = light ? light : dark;
+
 const sizeToClassNameMap = {
   none: null,
-  s: 'euiAvatar--s',
-  m: 'euiAvatar--m',
-  l: 'euiAvatar--l',
-  xl: 'euiAvatar--xl',
+  s: styles['euiAvatar--s'],
+  m: styles['euiAvatar--m'],
+  l: styles['euiAvatar--l'],
+  xl: styles['euiAvatar--xl'],
 };
 
 export const SIZES = keysOf(sizeToClassNameMap);
 export type EuiAvatarSize = keyof typeof sizeToClassNameMap;
 
 const typeToClassNameMap = {
-  space: 'euiAvatar--space',
-  user: 'euiAvatar--user',
+  space: styles['euiAvatar--space'],
+  user: styles['euiAvatar--user'],
 };
 
 export const TYPES = keysOf(typeToClassNameMap);
@@ -68,7 +79,7 @@ export const EuiAvatar: FunctionComponent<EuiAvatarProps> = ({
   ...rest
 }) => {
   const classes = classNames(
-    'euiAvatar',
+    styles.euiAvatar,
     sizeToClassNameMap[size],
     typeToClassNameMap[type],
     className

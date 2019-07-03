@@ -4,11 +4,20 @@ import React, {
   HTMLAttributes,
 } from 'react';
 import classNames from 'classnames';
+import { css } from 'astroturf';
 import { CommonProps, ExclusiveUnion, keysOf, PropsOf, Omit } from '../common';
 
 import { isColorDark, hexToRgb } from '../../services/color';
 
 import { EuiIcon, IconColor, IconType } from '../icon';
+
+const light = css`
+  @import 'badge_light.module';
+`;
+
+const dark = css`
+  @import 'badge_dark.module';
+`;
 
 type IconSide = 'left' | 'right';
 
@@ -58,25 +67,26 @@ export type EuiBadgeProps = {
    * Props passed to the close button.
    */
   closeButtonProps?: Partial<PropsOf<EuiIcon>>;
+  theme?: 'light' | 'dark';
 } & CommonProps &
   ExclusiveUnion<WithIconOnClick, {}> &
   ExclusiveUnion<WithSpanProps, WithButtonProps>;
 
 const colorToClassNameMap: { [color in IconColor]: string } = {
-  default: 'euiBadge--default',
-  primary: 'euiBadge--primary',
-  secondary: 'euiBadge--secondary',
-  accent: 'euiBadge--accent',
-  warning: 'euiBadge--warning',
-  danger: 'euiBadge--danger',
-  hollow: 'euiBadge--hollow',
+  default: light['euiBadge--default'],
+  primary: light['euiBadge--primary'],
+  secondary: light['euiBadge--secondary'],
+  accent: light['euiBadge--accent'],
+  warning: light['euiBadge--warning'],
+  danger: light['euiBadge--danger'],
+  hollow: light['euiBadge--hollow'],
 };
 
 export const COLORS = keysOf(colorToClassNameMap);
 
 const iconSideToClassNameMap: { [side in IconSide]: string } = {
-  left: 'euiBadge--iconLeft',
-  right: 'euiBadge--iconRight',
+  left: light['euiBadge--iconLeft'],
+  right: light['euiBadge--iconRight'],
 };
 
 export const ICON_SIDES = keysOf(iconSideToClassNameMap);
@@ -92,8 +102,25 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
   onClickAriaLabel,
   iconOnClickAriaLabel,
   closeButtonProps,
+  theme = 'light',
   ...rest
 }) => {
+  const styles = theme !== 'dark' ? light : dark;
+  const colorToClassNameMap: { [color in IconColor]: string } = {
+    default: styles['euiBadge--default'],
+    primary: styles['euiBadge--primary'],
+    secondary: styles['euiBadge--secondary'],
+    accent: styles['euiBadge--accent'],
+    warning: styles['euiBadge--warning'],
+    danger: styles['euiBadge--danger'],
+    hollow: styles['euiBadge--hollow'],
+  };
+
+  const iconSideToClassNameMap: { [side in IconSide]: string } = {
+    left: styles['euiBadge--iconLeft'],
+    right: styles['euiBadge--iconRight'],
+  };
+
   checkValidColor(color);
 
   let optionalColorClass = null;
@@ -113,9 +140,9 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
   }
 
   const classes = classNames(
-    'euiBadge',
+    styles.euiBadge,
     {
-      'euiBadge-isClickable': onClick && !iconOnClick,
+      [styles['euiBadge-isClickable']]: onClick && !iconOnClick,
     },
     iconSideToClassNameMap[iconSide],
     optionalColorClass,
@@ -123,7 +150,7 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
   );
 
   const closeClassNames = classNames(
-    'euiBadge__icon',
+    styles.euiBadge__icon,
     closeButtonProps && closeButtonProps.className
   );
 
@@ -137,7 +164,7 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
       }
       optionalIcon = (
         <button
-          className="euiBadge__iconButton"
+          className={styles.euiBadge__iconButton}
           aria-label={iconOnClickAriaLabel}
           onClick={iconOnClick}>
           <EuiIcon
@@ -150,7 +177,7 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
       );
     } else {
       optionalIcon = (
-        <EuiIcon type={iconType} size="s" className="euiBadge__icon" />
+        <EuiIcon type={iconType} size="s" className={styles.euiBadge__icon} />
       );
     }
   }
@@ -164,9 +191,9 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
   if (onClick && iconOnClick) {
     return (
       <span className={classes} style={optionalCustomStyles}>
-        <span className="euiBadge__content">
+        <span className={styles.euiBadge__content}>
           <button
-            className="euiBadge__childButton"
+            className={styles.euiBadge__childButton}
             aria-label={onClickAriaLabel}
             onClick={onClick}
             {...rest}>
@@ -184,7 +211,7 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
         onClick={onClick}
         style={optionalCustomStyles}
         {...rest}>
-        <span className="euiBadge__content">
+        <span className={styles.euiBadge__content}>
           <span>{children}</span>
           {optionalIcon}
         </span>
@@ -193,8 +220,8 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
   } else {
     return (
       <span className={classes} style={optionalCustomStyles} {...rest}>
-        <span className="euiBadge__content">
-          <span className="euiBadge__text">{children}</span>
+        <span className={styles.euiBadge__content}>
+          <span className={styles.euiBadge__text}>{children}</span>
           {optionalIcon}
         </span>
       </span>

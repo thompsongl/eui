@@ -40,18 +40,36 @@ const webpackConfig = {
     rules: [
       {
         test: /\.(js|tsx?)$/,
-        loaders: useCache(['babel-loader']),
+        use: [
+          'babel-loader',
+          {
+            loader: 'astroturf/loader',
+            options: {
+              extension: '.module.scss',
+            },
+          },
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.module\.scss$/,
+        loaders: [
+          'style-loader',
+          'astroturf/css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
         exclude: /node_modules/,
       },
       {
         test: /\.scss$/,
-        loaders: useCache([
+        loaders: [
           'style-loader/useable',
           'css-loader',
           'postcss-loader',
           'sass-loader',
-        ]),
-        exclude: /node_modules/,
+        ],
+        exclude: [/node_modules/, /\.module\.scss$/],
       },
       {
         test: /\.css$/,

@@ -1,3 +1,4 @@
+const { basename, dirname, extname, join } = require('path');
 module.exports = {
   // We need to preserve comments as they are used by webpack for
   // naming chunks during code-splitting. The compression step during
@@ -20,6 +21,20 @@ module.exports = {
     "@babel/react"
   ],
   "plugins": [
+    [
+      "astroturf/plugin",
+      {
+        extension: ".module.css",
+        writeFiles: false,
+        getFileName: (hostFilePath, pluginsOptions, id) => {
+          const basepath = join(
+            dirname(hostFilePath),
+            basename(hostFilePath, extname(hostFilePath)),
+          );
+          return `${basepath}_${id}${pluginsOptions.extension}`;
+        },
+      }
+    ],
     "@babel/plugin-syntax-dynamic-import",
     "pegjs-inline-precompile",
     "./scripts/babel/proptypes-from-ts-props",

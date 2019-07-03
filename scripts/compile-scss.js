@@ -126,13 +126,68 @@ async function compileScssFile(
   ];
 }
 
+async function compileModuleScssFile(inputFilename, outputCssFilename) {
+  const { css: renderedCss } = await sassExtract.render(
+    {
+      file: inputFilename,
+      outFile: outputCssFilename,
+    },
+    {
+      plugins: [sassExtractJsPlugin],
+    }
+  );
+  const { css: postprocessedCss } = await postcss(postcssConfiguration).process(
+    renderedCss,
+    {
+      from: outputCssFilename,
+      to: outputCssFilename,
+    }
+  );
+  writeFile(outputCssFilename, postprocessedCss);
+  return outputCssFilename;
+}
+
+async function compileModuleScssFiles() {
+  const inputFilenames = await glob(
+    path.join('src', 'components', '**', '*.module.scss')
+  );
+  await Promise.all(
+    inputFilenames.map(async inputFilename => {
+      console.log(chalk`{cyan …} Compiling {gray ${inputFilename}}`);
+
+      try {
+        const destination = inputFilename.replace('src/', 'es/');
+        const { dir: destinationDirectory } = path.parse(destination);
+        const { name } = path.parse(inputFilename);
+        const moduleName = name.replace('_', '');
+        const outputFilename = await compileModuleScssFile(
+          inputFilename,
+          path.join(destinationDirectory, `${moduleName}.css`)
+        );
+
+        console.log(
+          chalk`{green ✔} Finished compiling {gray ${inputFilename}} to ${outputFilename}`
+        );
+      } catch (error) {
+        console.log(
+          chalk`{red ✗} Failed to compile {gray ${inputFilename}} with ${
+            error.stack
+          }`
+        );
+      }
+    })
+  );
+}
+
 if (require.main === module) {
-  const [nodeBin, scriptName, euiPackageName] = process.argv;
+  // const [nodeBin, scriptName, euiPackageName] = process.argv;
+  //
+  // if (process.argv.length < 3) {
+  //   console.log(chalk`{bold Usage:} ${nodeBin} ${scriptName} eui-package-name`);
+  //   process.exit(1);
+  // }
+  //
+  // compileScssFiles(path.join('src', 'theme_*.scss'), 'dist', euiPackageName);
 
-  if (process.argv.length < 3) {
-    console.log(chalk`{bold Usage:} ${nodeBin} ${scriptName} eui-package-name`);
-    process.exit(1);
-  }
-
-  compileScssFiles(path.join('src', 'theme_*.scss'), 'dist', euiPackageName);
+  compileModuleScssFiles();
 }
