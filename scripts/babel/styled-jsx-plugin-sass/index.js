@@ -16,8 +16,6 @@ module.exports = (css, settings) => {
   const optionData = (settings.sassOptions && settings.sassOptions.data) || '';
   const data = `${optionData}\n${cssWithPlaceholders}`;
 
-  // const file = settings.babel && settings.babel.filename;
-
   const includePath = path.dirname(settings.babel.filename);
 
   const sassOpts = settings.sassOptions || {};
