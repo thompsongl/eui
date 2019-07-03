@@ -180,14 +180,14 @@ async function compileModuleScssFiles() {
 }
 
 if (require.main === module) {
-  // const [nodeBin, scriptName, euiPackageName] = process.argv;
-  //
-  // if (process.argv.length < 3) {
-  //   console.log(chalk`{bold Usage:} ${nodeBin} ${scriptName} eui-package-name`);
-  //   process.exit(1);
-  // }
-  //
-  // compileScssFiles(path.join('src', 'theme_*.scss'), 'dist', euiPackageName);
+  const [nodeBin, scriptName, euiPackageName] = process.argv;
+
+  if (process.argv.length < 3) {
+    console.log(chalk`{bold Usage:} ${nodeBin} ${scriptName} eui-package-name`);
+    process.exit(1);
+  }
+
+  compileScssFiles(path.join('src', 'theme_*.scss'), 'dist', euiPackageName);
 
   compileModuleScssFiles();
 }
