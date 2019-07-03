@@ -4,6 +4,7 @@ import React, {
   HTMLAttributes,
 } from 'react';
 import classNames from 'classnames';
+import css from 'styled-jsx/css';
 import { CommonProps, ExclusiveUnion, keysOf, PropsOf, Omit } from '../common';
 
 import { isColorDark, hexToRgb } from '../../services/color';
@@ -58,6 +59,7 @@ export type EuiBadgeProps = {
    * Props passed to the close button.
    */
   closeButtonProps?: Partial<PropsOf<EuiIcon>>;
+  theme?: 'light' | 'dark';
 } & CommonProps &
   ExclusiveUnion<WithIconOnClick, {}> &
   ExclusiveUnion<WithSpanProps, WithButtonProps>;
@@ -92,8 +94,19 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
   onClickAriaLabel,
   iconOnClickAriaLabel,
   closeButtonProps,
+  theme = 'light',
   ...rest
 }) => {
+  const { className: themeClass, styles: themeStyles } = css.resolve`
+    @import 'badge';
+  `;
+  const { className: darkThemeClass, styles: darkThemeStyles } = css.resolve`
+    @import '../../themes/eui/eui_colors_dark';
+    @import 'badge';
+  `;
+
+  const styles = [themeStyles, darkThemeStyles];
+
   checkValidColor(color);
 
   let optionalColorClass = null;
@@ -119,7 +132,9 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
     },
     iconSideToClassNameMap[iconSide],
     optionalColorClass,
-    className
+    className,
+    { [themeClass]: theme === 'light' },
+    { [darkThemeClass]: theme === 'dark' }
   );
 
   const closeClassNames = classNames(
@@ -174,6 +189,7 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
           </button>
           {optionalIcon}
         </span>
+        {styles}
       </span>
     );
   } else if (onClick) {
@@ -188,6 +204,7 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
           <span>{children}</span>
           {optionalIcon}
         </span>
+        {styles}
       </button>
     );
   } else {
@@ -197,6 +214,7 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
           <span className="euiBadge__text">{children}</span>
           {optionalIcon}
         </span>
+        {styles}
       </span>
     );
   }

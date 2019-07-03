@@ -1,6 +1,7 @@
 import React, { HTMLAttributes, FunctionComponent } from 'react';
 import { CommonProps, keysOf } from '../common';
 import classNames from 'classnames';
+import css from 'styled-jsx/css';
 
 import { isColorDark, hexToRgb } from '../../services/color';
 import { VISUALIZATION_COLORS, toInitials } from '../../services';
@@ -54,6 +55,8 @@ export type EuiAvatarProps = HTMLAttributes<HTMLDivElement> &
     type?: EuiAvatarType;
     imageUrl?: string;
     size?: EuiAvatarSize;
+    theme?: any;
+    themeColor?: string;
   };
 
 export const EuiAvatar: FunctionComponent<EuiAvatarProps> = ({
@@ -65,13 +68,47 @@ export const EuiAvatar: FunctionComponent<EuiAvatarProps> = ({
   name,
   size = 'm',
   type = 'user',
+  theme = 'light',
   ...rest
 }) => {
+  // let themeVars;
+  // if (theme === 'dark') {
+  //   const darkTheme = css`
+  //     @import '../../themes/eui/eui_colors_dark';
+  //   `;
+  //   themeVars = darkTheme;
+  // } else if (theme !== 'light') {
+  //   themeVars = '$euiColorFullShade: coral';
+  // }
+  // const { className: themeClass, styles: themeStyles } = css.resolve`
+  //   @mixin rtl($theme) {
+  //     $euiColorFullShade: if(map-get($theme, euiColorFullShade), map-get($theme, euiColorFullShade), $euiColorFullShade);
+  //   }
+  //
+  //   //$theme: ();
+  //   //$euiColorFullShadeMap: (euiColorFullShade: ${theme.euiColorFullShade});
+  //   //$themeMap: map-merge($theme, $euiColorFullShadeMap);
+  //   //@include rtl($themeMap);
+  //   //$euiColorFullShade: if(map-get($euiColorFullShadeMap, euiColorFullShade), map-get($euiColorFullShadeMap, euiColorFullShade), $euiColorSave);
+  //   @import 'avatar';
+  // `;
+  const { className: themeClass, styles: themeStyles } = css.resolve`
+    @import 'avatar';
+  `;
+  const { className: darkThemeClass, styles: darkThemeStyles } = css.resolve`
+    @import '../../themes/eui/eui_colors_dark';
+    @import 'avatar';
+  `;
+  // TODO: React Hook?
+  const styles = [themeStyles, darkThemeStyles];
+
   const classes = classNames(
     'euiAvatar',
     sizeToClassNameMap[size],
     typeToClassNameMap[type],
-    className
+    className,
+    { [themeClass]: theme === 'light' },
+    { [darkThemeClass]: theme === 'dark' }
   );
 
   checkValidColor(color);
@@ -91,20 +128,17 @@ export const EuiAvatar: FunctionComponent<EuiAvatarProps> = ({
     ? '#FFFFFF'
     : '#000000';
 
-  const avatarStyle = {
-    backgroundImage: imageUrl ? `url(${imageUrl})` : 'none',
-    backgroundColor: assignedColor,
-    color: textColor,
-  };
-
   return (
-    <div
-      className={classes}
-      style={avatarStyle}
-      aria-label={name}
-      title={name}
-      {...rest}>
+    <div className={classes} aria-label={name} title={name} {...rest}>
       {optionalInitial}
+      {styles}
+      <style jsx>{`
+        .euiAvatar {
+          background-image: ${imageUrl ? `url(${imageUrl})` : 'none'};
+          background-color: ${assignedColor};
+          color: ${textColor};
+        }
+      `}</style>
     </div>
   );
 };

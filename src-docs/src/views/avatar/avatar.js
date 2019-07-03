@@ -4,7 +4,7 @@ import { EuiAvatar, EuiSpacer, EuiTitle } from '../../../../src/components';
 
 export default () => (
   <div>
-    <EuiAvatar size="s" name="Raphael" />
+    <EuiAvatar size="s" name="Raphael" theme="dark" />
     &emsp;
     <EuiAvatar size="m" name="Donatello" />
     &emsp;

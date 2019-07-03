@@ -20,6 +20,15 @@ module.exports = {
     "@babel/react"
   ],
   "plugins": [
+    [
+      "styled-jsx/babel",
+      {
+        "optimizeForSpeed": true,
+        "plugins": [
+          [require.resolve("./scripts/babel/styled-jsx-plugin-sass")]
+        ]
+      }
+    ],
     "@babel/plugin-syntax-dynamic-import",
     "pegjs-inline-precompile",
     "./scripts/babel/proptypes-from-ts-props",
