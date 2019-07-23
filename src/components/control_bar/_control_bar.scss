@@ -1,0 +1,107 @@
+.euiControlBar {
+  background: $euiColorDarkestShade;
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: all $euiAnimSpeedNormal $euiAnimSlightResistance;
+  box-shadow: inset 0 2.5rem 0 $euiColorDarkestShade, inset 0 100rem 0 $euiColorLightestShade;
+  z-index: $euiZNavigation;
+
+  &.euiControlBar--open {
+    height: calc(100% - 4rem);
+  }
+}
+
+.euiControlBar__controls {
+  height: 2.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.euiControlBar__content {
+  width: 100%;
+  height: calc(100% - 2.5rem);
+  background-color: $euiColorLightestShade;
+  animation-name: showContent;
+  animation-duration: $euiAnimSpeedSlow;
+  animation-iteration-count: 1;
+  animation-timing-function: $euiAnimSlightResistance;
+}
+
+@keyframes showContent {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.euiControlBar__euiButtonIcon {
+  min-width: 2.5rem;
+}
+
+.euiControlBar__euiButton {
+  border-radius: 0;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+
+  &:enabled:hover {
+    transform: translateY(0);
+  }
+
+  &.euiButton--primary {
+    color: makeHighContrastColor($euiColorPrimary, $euiColorDarkestShade);
+    border-color: makeHighContrastColor($euiColorPrimary, $euiColorDarkestShade);
+  }
+
+  &.euiButton--danger {
+    color: makeHighContrastColor($euiColorDanger, $euiColorDarkestShade);
+    border-color: makeHighContrastColor($euiColorDanger, $euiColorDarkestShade);
+  }
+
+  &.euiButton--warning {
+    color: makeHighContrastColor($euiColorWarning, $euiColorDarkestShade);
+    border-color: makeHighContrastColor($euiColorWarning, $euiColorDarkestShade);
+  }
+}
+
+.euiControlBar__spacer {
+  display: flex;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.euiControlBar__euiText {
+  padding: 0 $euiSizeS;
+}
+
+.euiControlBar__tab {
+  padding: 0 $euiSize;
+  text-align: center;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $euiColorLightestShade;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  &.euiControlBar__tab--active {
+    background-color: $euiColorLightestShade;
+    box-shadow: inset 0 4px 0 makeHighContrastColor($euiColorPrimary, $euiColorLightestShade);
+    color: makeHighContrastColor($euiColorPrimary, $euiColorLightestShade);
+  }
+}
+

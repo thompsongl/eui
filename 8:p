@@ -1,0 +1,58 @@
+import React, { Component } from 'react';
+
+import { EuiButton, EuiControlBar, EuiText } from '../../../../src/components';
+
+export default class extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      contentIsVisible: false,
+    };
+  }
+
+  toggle() {
+    this.setState({
+      contentIsVisible: !this.state.contentIsVisible,
+    });
+  }
+
+  soundTheAlarms() {
+    alert('You clicked a button!');
+  }
+
+  closeTheHatch() {
+    alert('The hatch has been closed!');
+  }
+
+  render() {
+    const controls = [
+      {
+        label: 'Sound the Alarm',
+        controlType: 'button',
+        onClick: this.soundTheAlarms(),
+      },
+      {
+        label: 'Close the Hatch',
+        controlType: 'button',
+        onClick: this.closeTheHatch(),
+      },
+    ];
+
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '400px',
+          position: 'relative',
+          border: '1px solid #dadada',
+        }}>
+        <EuiButton onClick={this.toggle.bind(this)}>Toggle</EuiButton>
+        <EuiControlBar
+          controls={controls}
+          showContent={this.state.contentIsVisible}>
+          <p>Look at me</p>
+        </EuiControlBar>
+      </div>
+    );
+  }
+}

@@ -43,6 +43,8 @@ export {
   EuiContextMenuItem,
 } from './context_menu';
 
+export { EuiControlBar } from './control_bar';
+
 export { EuiCopy } from './copy';
 
 export {
