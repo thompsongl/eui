@@ -8,8 +8,9 @@ import {
   formatNumber,
   formatText,
   LEFT_ALIGNMENT,
-  PropertySortType,
+  CENTER_ALIGNMENT,
   RIGHT_ALIGNMENT,
+  PropertySortType,
   SortDirection,
 } from '../../services';
 import { isFunction } from '../../services/predicate';
@@ -113,7 +114,7 @@ export const FieldDataColumnTypeShape = {
   dataType: PropTypes.oneOf(DATA_TYPES),
   width: PropTypes.string,
   sortable: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-  align: PropTypes.oneOf([LEFT_ALIGNMENT, RIGHT_ALIGNMENT]),
+  align: PropTypes.oneOf([LEFT_ALIGNMENT, CENTER_ALIGNMENT, RIGHT_ALIGNMENT]),
   truncateText: PropTypes.bool,
   render: PropTypes.func, // ((value, record) => PropTypes.node (also see [services/value_renderer] for basic implementations)
   footer: PropTypes.oneOfType([
@@ -147,7 +148,7 @@ export const ItemIdType = PropTypes.oneOfType([
 export const SelectionType = PropTypes.shape({
   onSelectionChange: PropTypes.func, // (selection: item[]) => void;,
   selectable: PropTypes.func, // (item) => boolean;
-  selectableMessage: PropTypes.func, // (selectable, item) => boolean;
+  selectableMessage: PropTypes.func, // (selectable, item) => string;
 });
 
 const SortingType = PropTypes.shape({
