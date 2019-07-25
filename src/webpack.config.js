@@ -59,7 +59,15 @@ module.exports = {
     rules: [
       {
         test: /\.(js|tsx?)$/,
-        loader: 'babel-loader',
+        use: [
+          'babel-loader',
+          {
+            loader: 'astroturf/loader',
+            options: {
+              extension: '.module.scss',
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
       {

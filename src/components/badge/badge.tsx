@@ -11,6 +11,9 @@ import { isColorDark, hexToRgb } from '../../services/color';
 
 import { EuiIcon, IconColor, IconType } from '../icon';
 
+// the variable name is significant.
+// the build step (babel) uses it to find the scss file.
+// e.g., 'light' in badge_light.modules
 const light = css`
   @import 'badge_light.module';
 `;
