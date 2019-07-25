@@ -14,7 +14,12 @@
 .euiSuperSelect__listbox {
   @include euiScrollBar;
   max-height: 300px;
+<<<<<<< HEAD
   overflow: hidden auto;
+=======
+  overflow: hidden;
+  overflow-y: auto;
+>>>>>>> [Feature branch] Compressed EuiSuperSelect dropdown (#2155)
 }
 
 .euiSuperSelect__popoverPanel[class*='bottom'] { /* 3 */
@@ -35,10 +40,18 @@
   @include euiFontSizeS;
   padding: $euiSizeS;
 
+<<<<<<< HEAD
   &:hover,
+=======
+  &:hover:not(:disabled),
+>>>>>>> [Feature branch] Compressed EuiSuperSelect dropdown (#2155)
   &:focus {
     text-decoration: none;
     background-color: $euiFocusBackgroundColor;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 }
 
