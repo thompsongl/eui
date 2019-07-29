@@ -17,14 +17,28 @@ export type EuiControlBarProps = HTMLAttributes<HTMLDivElement> &
     controls: any[];
   };
 
-export class EuiControlBar extends Component<EuiControlBarProps> {
+interface EuiControlBarState {
+  selectedTab: string;
+}
+
+export class EuiControlBar extends Component<
+  EuiControlBarProps,
+  EuiControlBarState
+> {
   constructor(props: EuiControlBarProps) {
     super(props);
+    this.state = {
+      selectedTab: '',
+    };
   }
 
-  func() {
-    console.log('Func != Funk');
-  }
+  //  static getDerivedStateFromProps(props: any, current_state: any) {
+  //    if (current_state.selectedTab !== '' && !props.showContent) {
+  //      current_state.selectedTab = '';
+  //    } else {
+  //      return null;
+  //    }
+  //  }
 
   render() {
     const { children, className, showContent, controls, ...rest } = this.props;
@@ -35,12 +49,19 @@ export class EuiControlBar extends Component<EuiControlBarProps> {
       className
     );
 
+    const handleTabClick = (control: any) => {
+      this.setState({
+        selectedTab: control.id,
+      });
+      control.onClick();
+    };
+
     const controlItem = (control: any, index: number) => {
       switch (control.controlType) {
         case 'button':
           return (
             <EuiButton
-              key={control.label}
+              key={control.id}
               aria-label={`Control Bar - ${control.label}`}
               onClick={control.onClick}
               data-test-subj={control.label}
@@ -55,7 +76,7 @@ export class EuiControlBar extends Component<EuiControlBarProps> {
         case 'icon':
           return (
             <EuiButtonIcon
-              key={control.label}
+              key={control.id}
               iconType={control.iconType}
               data-test-subj={control.icon}
               aria-label={control.label}
@@ -78,27 +99,32 @@ export class EuiControlBar extends Component<EuiControlBarProps> {
         case 'text':
           return (
             <EuiText
-              color={control.color ? control.color : 'ghost'}
+              color={control.color ? control.color : null}
               className="euiControlBar__euiText"
-              key={control.controlType + index}
+              key={control.id}
               size="s">
               {control.label}
             </EuiText>
           );
           break;
         case 'tab':
-          return (
+          const refName = `tabRef${index}`;
+          const tab = (
             <div
-              key={`tab-${control.label}`}
-              className={`euiControlBar__tab ${
-                control.isActive ? 'euiControlBar__tab--active' : null
+              key={control.id}
+              ref={refName}
+              className={`euiControlBar__tab${
+                control.id === this.state.selectedTab
+                  ? ' euiControlBar__tab--active'
+                  : ''
               }`}
               data-test-subj={control.label}
               aria-label={`Control Bar - ${control.label}`}
-              onClick={control.onClick}>
+              onClick={() => handleTabClick(control)}>
               <EuiText size="s">{control.label}</EuiText>
             </div>
           );
+          return tab;
           break;
       }
     };

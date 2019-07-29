@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
-import { EuiButton, EuiControlBar, EuiText } from '../../../../src/components';
+import {
+  EuiButton,
+  EuiControlBar,
+  EuiLink,
+  EuiText,
+} from '../../../../src/components';
 
 export default class extends Component {
   constructor(props) {
@@ -19,15 +24,16 @@ export default class extends Component {
 
   render() {
     const soundTheAlarms = () => {
-      console.log('You clicked a button!');
+      alert('You clicked a button!');
     };
 
     const closeTheHatch = () => {
-      console.log('The hatch has been closed!');
+      this.setState({
+        contentIsVisible: false,
+      });
     };
 
     const tabOne = () => {
-      controls[2].isActive = true;
       this.setState({
         contentIsVisible: true,
         tabContent:
@@ -35,13 +41,28 @@ export default class extends Component {
       });
     };
 
+    const tabTwo = () => {
+      this.setState({
+        contentIsVisible: true,
+        tabContent:
+          'The Others, referred to by the DHARMA Initiative as the Hostiles or the Natives, and also by the tail section survivors of Oceanic Flight 815 as Them, are a group of people living on the Island who were followers of Jacob, intermediated by Richard Alpert. Jacob never showed himself to his people, and they took orders from a succession of leaders including Eloise Hawking, Charles Widmore, Benjamin Linus, and briefly, John Locke.',
+      });
+    };
+
+    const textLink = (
+      <EuiLink href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+        src/component/roller.tsx
+      </EuiLink>
+    );
     const controls = [
       {
+        id: 'sound_the_alarm',
         label: 'Sound the Alarm',
         controlType: 'button',
         onClick: soundTheAlarms,
       },
       {
+        id: 'close_the_hatch',
         label: 'Close the Hatch',
         controlType: 'button',
         onClick: closeTheHatch,
@@ -49,31 +70,33 @@ export default class extends Component {
         color: 'danger',
       },
       {
-        label: 'Tab 1',
+        id: 'flight_815',
+        label: 'Flight 815',
         controlType: 'tab',
         onClick: tabOne,
-        isActive: false,
       },
       {
-        label: 'Tab 2',
+        id: 'the_others',
+        label: 'The Others',
         controlType: 'tab',
-        onClick: closeTheHatch,
-        isActive: false,
+        onClick: tabTwo,
       },
       {
+        id: 'spacer_1',
         controlType: 'spacer',
       },
       {
+        id: 'set_the_timer',
         label: 'Set the Timer',
         controlType: 'icon',
         iconType: 'clock',
         onClick: closeTheHatch,
       },
       {
-        label: 'src/components/control_bar/control_bar.tsx',
+        id: 'some_text',
+        label: textLink,
         controlType: 'text',
         onClick: null,
-        color: 'ghost',
       },
     ];
 
@@ -83,7 +106,6 @@ export default class extends Component {
           width: '100%',
           height: '400px',
           position: 'relative',
-          border: '1px solid #dadada',
         }}>
         <EuiButton onClick={this.toggle.bind(this)}>Toggle</EuiButton>
         <EuiControlBar

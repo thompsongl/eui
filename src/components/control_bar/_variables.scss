@@ -1,0 +1,38 @@
+$controlBarBackground: lightOrDarkTheme($euiColorDarkestShade, $euiColorInk);
+$controlBarText: lighten(makeHighContrastColor($euiColorLightestShade, $controlBarBackground), 20%);
+
+$colorVariables: (
+  primary: $euiColorPrimary,
+  secondary: $euiColorSecondary,
+  accent: $euiColorAccent,
+  warning: $euiColorWarning,
+  danger: $euiColorDanger,
+  ghost: $euiColorGhost,
+);
+
+@each $colorName, $colorValue in $colorVariables {
+  .euiControlBar__controls {
+    .euiText--#{$colorName} {
+      color: makeHighContrastColor($colorValue, $controlBarBackground);
+    }
+
+    .euiLink.euiLink--#{$colorName} {
+      color: makeHighContrastColor($colorValue, $controlBarBackground);
+
+      &:hover {
+        color: tintOrShade($colorValue, 30%, 30%);
+      }
+    }
+
+    .euiButton--#{$colorName}:enabled {
+      color: makeHighContrastColor($colorValue, $controlBarBackground);
+      border-color: makeHighContrastColor($colorValue, $controlBarBackground);
+      box-shadow: none;
+    }
+
+    .euiIcon--#{$colorName} {
+      color: makeHighContrastColor($colorValue, $controlBarBackground);
+    }
+  }
+}
+

@@ -1,19 +1,21 @@
 .euiControlBar {
-  background: $euiColorDarkestShade;
+  background: lighten($euiColorInk, 5%);
   width: 100%;
   height: 2.5rem;
+  color: $controlBarText;
   display: flex;
   flex-direction: column;
   position: absolute;
   bottom: 0;
   left: 0;
   transition: all $euiAnimSpeedNormal $euiAnimSlightResistance;
-  box-shadow: inset 0 2.5rem 0 $euiColorDarkestShade, inset 0 100rem 0 $euiColorLightestShade;
+  box-shadow: inset 0 2.5rem 0 $controlBarBackground, inset 0 100rem 0 $euiColorLightestShade;
   z-index: $euiZNavigation;
 
   &.euiControlBar--open {
     height: calc(100% - 4rem);
   }
+
 }
 
 .euiControlBar__controls {
@@ -31,6 +33,7 @@
   animation-duration: $euiAnimSpeedSlow;
   animation-iteration-count: 1;
   animation-timing-function: $euiAnimSlightResistance;
+  color: $euiColorDarkestShade;
 }
 
 @keyframes showContent {
@@ -55,22 +58,9 @@
 
   &:enabled:hover {
     transform: translateY(0);
+    box-shadow: none;
   }
 
-  &.euiButton--primary {
-    color: makeHighContrastColor($euiColorPrimary, $euiColorDarkestShade);
-    border-color: makeHighContrastColor($euiColorPrimary, $euiColorDarkestShade);
-  }
-
-  &.euiButton--danger {
-    color: makeHighContrastColor($euiColorDanger, $euiColorDarkestShade);
-    border-color: makeHighContrastColor($euiColorDanger, $euiColorDarkestShade);
-  }
-
-  &.euiButton--warning {
-    color: makeHighContrastColor($euiColorWarning, $euiColorDarkestShade);
-    border-color: makeHighContrastColor($euiColorWarning, $euiColorDarkestShade);
-  }
 }
 
 .euiControlBar__spacer {
@@ -81,6 +71,7 @@
 
 .euiControlBar__euiText {
   padding: 0 $euiSizeS;
+  color: $controlBarText;
 }
 
 .euiControlBar__tab {
@@ -91,7 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $euiColorLightestShade;
+  color: $controlBarText;
 
   &:hover {
     text-decoration: underline;
@@ -103,5 +94,9 @@
     box-shadow: inset 0 4px 0 makeHighContrastColor($euiColorPrimary, $euiColorLightestShade);
     color: makeHighContrastColor($euiColorPrimary, $euiColorLightestShade);
   }
+}
+
+.euiControlBar__euiButton + .euiControlBar__tab--active {
+  box-shadow: inset 0 4px 0 makeHighContrastColor($euiColorPrimary, $euiColorLightestShade), -1px 0 0 $controlBarBackground;
 }
 
