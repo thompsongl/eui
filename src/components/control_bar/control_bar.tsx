@@ -49,6 +49,11 @@ export class EuiControlBar extends Component<
       className
     );
 
+    const tabClasses = classNames(
+      'euiControlBar__tab ',
+      this.props.showContent ? 'euiControlBar__tab--active' : null
+    );
+
     const handleTabClick = (control: any) => {
       this.setState({
         selectedTab: control.id,
@@ -113,10 +118,8 @@ export class EuiControlBar extends Component<
             <div
               key={control.id}
               ref={refName}
-              className={`euiControlBar__tab${
-                control.id === this.state.selectedTab
-                  ? ' euiControlBar__tab--active'
-                  : ''
+              className={`euiControlBar__tab ${
+                control.id === this.state.selectedTab ? tabClasses : ''
               }`}
               data-test-subj={control.label}
               aria-label={`Control Bar - ${control.label}`}
