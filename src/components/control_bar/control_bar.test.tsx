@@ -1,13 +1,13 @@
 import React from 'react';
 import { render } from 'enzyme';
 import { requiredProps } from '../../test/required_props';
-import { EuiControlBar } from './control_bar';
+import { EuiControlBar, Control } from './control_bar';
 
 const handleClick = () => {
   console.log('You clicked');
 };
 
-const controls = [
+const controls: Control[] = [
   {
     id: 'sound_the_alarm',
     label: 'Sound the Alarm',
@@ -19,6 +19,12 @@ const controls = [
     label: 'Close the Hatch',
     controlType: 'button',
     onClick: handleClick,
+  },
+  {
+    id: 'sample_icon',
+    label: 'Sample Icon',
+    controlType: 'icon',
+    iconType: 'alert',
   },
 ];
 
