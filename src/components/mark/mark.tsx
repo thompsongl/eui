@@ -13,5 +13,12 @@ export const EuiMark: FunctionComponent<EuiMarkProps> = ({
   type = 'mark',
 }) => {
   const classes = classnames('euiMark', [`euiMark--${type}`], className);
-  return <mark className={classes}>{children}</mark>;
+  return (
+    <mark className={classes}>
+      {children}
+      <style jsx>{`
+        @import 'mark';
+      `}</style>
+    </mark>
+  );
 };
