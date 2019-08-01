@@ -55,7 +55,14 @@ const webpackConfig = {
         test: /\.module\.scss$/,
         loaders: [
           'style-loader',
-          'astroturf/css-loader',
+          {
+            loader: 'astroturf/css-loader',
+            options: {
+              modules: true,
+              // targetable via [class*="-euiMark--mark"]
+              localIdentName: '[name]__[local]',
+            },
+          },
           'postcss-loader',
           'sass-loader',
         ],

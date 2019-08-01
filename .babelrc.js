@@ -31,7 +31,7 @@ module.exports = {
             dirname(hostFilePath),
             basename(hostFilePath, extname(hostFilePath)),
           );
-          return `${basepath}_${id}${pluginsOptions.extension}`;
+          return `${basepath}${pluginsOptions.extension}`;
         },
       }
     ],

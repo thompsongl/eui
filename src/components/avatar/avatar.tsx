@@ -10,11 +10,11 @@ const light = css`
   @import 'avatar_light.module';
 `;
 
-const dark = css`
-  @import 'avatar_dark.module';
-`;
+// const dark = css`
+//   @import 'avatar_dark.module';
+// `;
 
-const styles = light ? light : dark;
+const styles = light;
 
 const sizeToClassNameMap = {
   none: null,

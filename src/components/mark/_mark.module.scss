@@ -1,3 +1,5 @@
+@import '../../global_styling/context';
+
 .euiMark {
   color: inherit;
 
@@ -14,6 +16,10 @@
     background-color: transparent;
     font-style: italic;
   }
+}
+
+.euiMark_text {
+  color: $euiColorVis0;
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark#Accessibility_concerns
