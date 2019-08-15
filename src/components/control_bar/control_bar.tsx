@@ -168,7 +168,7 @@ export class EuiControlBar extends Component<
         case 'text':
           return (
             <EuiText
-              color={control.color ? control.color : 'default'}
+              color={control.color ? control.color : 'ghost'}
               className="euiControlBar__euiText"
               key={control.id + index}
               size="s">
@@ -176,7 +176,7 @@ export class EuiControlBar extends Component<
             </EuiText>
           );
         case 'tab':
-          const tab = (
+          return (
             <div
               key={control.id + index}
               className={`euiControlBar__tab ${
