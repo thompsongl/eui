@@ -3,102 +3,222 @@ import React, { Component } from 'react';
 import {
   EuiButton,
   EuiControlBar,
+  EuiFlexGroup,
+  EuiFlexItem,
   EuiLink,
+  EuiPanel,
   EuiText,
+  EuiTextColor,
 } from '../../../../src/components';
+import { EuiFocusTrap } from '../../../../src/components/focus_trap';
+import { keyCodes } from '../../../../src/services';
 
 export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
       contentIsVisible: false,
-      tabContent: '',
+      isFullScreen: false,
     };
   }
 
   toggle() {
-    this.setState({
-      contentIsVisible: !this.state.contentIsVisible,
-    });
+    this.setState(prevState => ({
+      contentIsVisible: !prevState.contentIsVisible,
+    }));
   }
 
-  soundTheAlarms = () => {
-    alert('You clicked a button!');
-  };
-
-  closeTheHatch = () => {
-    this.setState({
+  toggleFullScreen() {
+    this.setState(prevState => ({
+      isFullScreen: !prevState.isFullScreen,
       contentIsVisible: false,
-    });
+    }));
+  }
+
+  onKeyDown = event => {
+    if (event.keyCode === keyCodes.ESCAPE) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.setState({
+        isFullScreen: false,
+        contentIsVisible: false,
+      });
+    }
   };
 
-  tabOne = () => {
-    this.setState({
-      contentIsVisible: true,
-      tabContent:
-        "Oceanic Airlines Flight 815 was a scheduled flight from Sydney, Australia to Los Angeles, California, United States, on a Boeing 777-200ER. On September 22, 2004 at 4:16 P.M., the airliner, carrying 324 passengers, deviated from its original course and disappeared over the Pacific Ocean. This is the central moment in the series that kicked off its plotline, and marked the chronological beginning of the main characters' adventures on the Island.",
-    });
-  };
-
-  tabTwo = () => {
-    this.setState({
-      contentIsVisible: true,
-      tabContent:
-        'The Others, referred to by the DHARMA Initiative as the Hostiles or the Natives, and also by the tail section survivors of Oceanic Flight 815 as Them, are a group of people living on the Island who were followers of Jacob, intermediated by Richard Alpert. Jacob never showed himself to his people, and they took orders from a succession of leaders including Eloise Hawking, Charles Widmore, Benjamin Linus, and briefly, John Locke.',
-    });
-  };
   render() {
     const textLink = (
-      <EuiLink href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-        src/component/roller.tsx
-      </EuiLink>
+      <EuiText size="s">
+        <EuiLink>src</EuiLink>
+        <EuiTextColor color="subdued">&nbsp;/&nbsp;</EuiTextColor>
+        <EuiLink>component</EuiLink>
+        <EuiTextColor color="subdued">&nbsp;/&nbsp;</EuiTextColor> thing.tsx
+      </EuiText>
     );
-    const controls = [
+
+    const codeControls = [
       {
-        id: 'sound_the_alarm',
-        label: 'Sound the Alarm',
-        controlType: 'button',
-        onClick: this.soundTheAlarms,
-        color: 'warning',
+        id: 'root_icon',
+        label: 'Project Root',
+        controlType: 'icon',
+        iconType: 'submodule',
       },
       {
-        id: 'close_the_hatch',
-        label: 'Close the Hatch',
-        controlType: 'button',
-        onClick: this.closeTheHatch,
-        classNames: 'customClassName',
-        color: 'primary',
-      },
-      {
-        id: 'flight_815',
-        label: 'Flight 815',
-        controlType: 'tab',
-        onClick: this.tabOne,
-      },
-      {
-        id: 'the_others',
-        label: 'The Others',
-        controlType: 'tab',
-        onClick: this.tabTwo,
+        id: 'current_file_path',
+        label: textLink,
+        controlType: 'text',
       },
       {
         id: 'spacer_1',
         controlType: 'spacer',
       },
       {
-        id: 'set_the_timer',
-        label: 'Set the Timer',
+        id: 'status_icon',
+        label: 'Repo Status',
         controlType: 'icon',
-        iconType: 'clock',
-        onClick: this.closeTheHatch,
+        iconType: 'alert',
+        color: 'warning',
       },
       {
-        id: 'some_text',
-        label: textLink,
+        id: 'divider_one',
+        controlType: 'divider',
+      },
+      {
+        id: 'branch_icon',
+        label: 'Branch Icon',
+        iconType: 'branch',
+        controlType: 'icon',
+      },
+      {
+        id: 'branch_name',
+        label: 'some_long_bran...',
         controlType: 'text',
-        onClick: null,
+      },
+      {
+        id: 'divider_two',
+        controlType: 'divider',
+      },
+      {
+        id: 'github_icon',
+        label: 'Open in Github',
+        controlType: 'icon',
+        iconType: 'logoGithub',
+      },
+      {
+        id: 'divider_three',
+        controlType: 'divider',
+      },
+      {
+        id: 'open_code_view',
+        label: 'Code',
+        controlType: 'button',
+      },
+      {
+        id: 'open_blame_view',
+        label: 'Blame',
+        controlType: 'button',
+      },
+      {
+        id: 'open_history_view',
+        label: 'History',
+        controlType: 'button',
       },
     ];
+
+    let fullScreenDisplay;
+
+    const controlBar = (
+      <EuiControlBar
+        controls={codeControls}
+        showContent={this.state.contentIsVisible}
+        style={!this.state.isFullScreen ? { position: 'absolute' } : null}>
+        <div style={{ padding: '1rem' }}>
+          {this.state.tabContent !== '' ? (
+            <EuiText>{this.state.tabContent}</EuiText>
+          ) : (
+            <p>Look at me</p>
+          )}
+        </div>
+      </EuiControlBar>
+    );
+
+    if (this.state.isFullScreen) {
+      fullScreenDisplay = (
+        <EuiFocusTrap>
+          <div
+            className="guideDemo__pageOverlay"
+            style={{
+              padding: '2rem',
+              zIndex: '20000',
+            }}
+            onKeyDown={this.onKeyDown}>
+            <EuiFlexGroup>
+              <EuiButton onClick={this.toggle.bind(this)}>
+                Toggle Content Drawer
+              </EuiButton>
+              <EuiFlexItem grow />
+              <EuiButton onClick={this.toggleFullScreen.bind(this)}>
+                Close
+              </EuiButton>
+            </EuiFlexGroup>
+            <EuiControlBar
+              controls={codeControls}
+              showContent={this.state.contentIsVisible}>
+              <EuiPanel
+                style={{ maxWidth: '60rem', margin: '2rem auto auto auto' }}>
+                <EuiText>
+                  <h1>1984</h1>
+                  <h3>By: George Orwell</h3>
+                  <p>
+                    It was a bright cold day in April, and the clocks were
+                    striking thirteen. Winston Smith, his chin nuzzled into his
+                    breast in an effort to escape the vile wind, slipped quickly
+                    through the glass doors of Victory Mansions, though not
+                    quickly enough to prevent a swirl of gritty dust from
+                    entering along with him.
+                  </p>
+                  <p>
+                    The hallway smelt of boiled cabbage and old rag mats. At one
+                    end of it a coloured poster, too large for indoor display,
+                    had been tacked to the wall. It depicted simply an enormous
+                    face, more than a metre wide: the face of a man of about
+                    forty-five, with a heavy black moustache and ruggedly
+                    handsome features. Winston made for the stairs. It was no
+                    use trying the lift. Even at the best of times it was seldom
+                    working, and at present the electric current was cut off
+                    during daylight hours. It was part of the economy drive in
+                    preparation for Hate Week. The flat was seven flights up,
+                    and Winston, who was thirty-nine and had a varicose ulcer
+                    above his right ankle, went slowly, resting several times on
+                    the way. On each landing, opposite the lift-shaft, the
+                    poster with the enormous face gazed from the wall. It was
+                    one of those pictures which are so contrived that the eyes
+                    follow you about when you move. BIG BROTHER IS WATCHING YOU,
+                    the caption beneath it ran.
+                  </p>
+                  <p>
+                    Inside the flat a fruity voice was reading out a list of
+                    figures which had something to do with the production of
+                    pig-iron. The voice came from an oblong metal plaque like a
+                    dulled mirror which formed part of the surface of the
+                    right-hand wall. Winston turned a switch and the voice sank
+                    somewhat, though the words were still distinguishable. The
+                    instrument (the telescreen, it was called) could be dimmed,
+                    but there was no way of shutting it off completely. He moved
+                    over to the window: a smallish, frail figure, the meagreness
+                    of his body merely emphasized by the blue overalls which
+                    were the uniform of the party. His hair was very fair, his
+                    face naturally sanguine, his skin roughened by coarse soap
+                    and blunt razor blades and the cold of the winter that had
+                    just ended.
+                  </p>
+                </EuiText>
+              </EuiPanel>
+            </EuiControlBar>
+          </div>
+        </EuiFocusTrap>
+      );
+    }
 
     return (
       <div
@@ -107,18 +227,11 @@ export default class extends Component {
           height: '400px',
           position: 'relative',
         }}>
-        <EuiButton onClick={this.toggle.bind(this)}>Toggle</EuiButton>
-        <EuiControlBar
-          controls={controls}
-          showContent={this.state.contentIsVisible}>
-          <div style={{ padding: '1rem' }}>
-            {this.state.tabContent !== '' ? (
-              <EuiText>{this.state.tabContent}</EuiText>
-            ) : (
-              <p>Look at me</p>
-            )}
-          </div>
-        </EuiControlBar>
+        <EuiButton onClick={this.toggleFullScreen.bind(this)}>
+          Go Full Screen
+        </EuiButton>
+        {controlBar}
+        {fullScreenDisplay}
       </div>
     );
   }

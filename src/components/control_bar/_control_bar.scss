@@ -1,19 +1,27 @@
 .euiControlBar {
   background: lighten($euiColorInk, 5%);
   width: 100%;
-  height: 2.5rem;
+  height: $euiSizeXXL;
   color: $controlBarText;
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   transition: all $euiAnimSpeedNormal $euiAnimSlightResistance;
   box-shadow: inset 0 2.5rem 0 $controlBarBackground, inset 0 100rem 0 $euiColorLightestShade;
   z-index: $euiZNavigation;
 
-  &.euiControlBar--open {
-    height: calc(100% - 4rem);
+  &.euiControlBar--open.euiControlBar--large {
+    height: 90%;
+  }
+
+  &.euiControlBar--open.euiControlBar--medium {
+    height: 50%;
+  }
+
+  &.euiControlBar--open.euiControlBar--small {
+    height: 25%;
   }
 
 }
@@ -34,6 +42,7 @@
   animation-iteration-count: 1;
   animation-timing-function: $euiAnimSlightResistance;
   color: $euiColorDarkestShade;
+  overflow-y: scroll;
 }
 
 @keyframes showContent {
@@ -61,12 +70,22 @@
     box-shadow: none;
   }
 
+  &:last-child {
+    border-right: none;
+  }
+
 }
 
 .euiControlBar__spacer {
   display: flex;
   flex-grow: 1;
   height: 100%;
+}
+
+.euiControlBar__divider {
+  height: 100%;
+  width: 1px;
+  background-color: $controlBarBorderColor;
 }
 
 .euiControlBar__euiText {

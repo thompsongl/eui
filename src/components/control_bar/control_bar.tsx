@@ -34,6 +34,11 @@ interface SpacerControl {
   id: string;
 }
 
+interface DivideControl {
+  controlType: 'divider';
+  id: string;
+}
+
 interface IconControl {
   controlType: 'icon';
   id: string;
@@ -49,6 +54,7 @@ export type Control =
   | TabControl
   | TextControl
   | IconControl
+  | DivideControl
   | SpacerControl;
 
 export type EuiControlBarProps = HTMLAttributes<HTMLDivElement> &
@@ -62,6 +68,10 @@ export type EuiControlBarProps = HTMLAttributes<HTMLDivElement> &
      * An array of controls, actions, and layout spacers to display
      */
     controls: Control[];
+    /**
+     * The maximum height of the overlay. Default is 90%, Medium is 75%, Small is 50%;
+     */
+    size?: 's' | 'm' | 'l';
   };
 
 interface EuiControlBarState {
@@ -77,14 +87,24 @@ export class EuiControlBar extends Component<
   };
 
   render() {
-    const { children, className, showContent, controls, ...rest } = this.props;
+    const {
+      children,
+      className,
+      showContent,
+      controls,
+      size,
+      ...rest
+    } = this.props;
 
     const classes = classNames('euiControlBar', className, {
-      'euiControlBar--open': this.props.showContent,
+      'euiControlBar--open': showContent,
+      'euiControlBar--large': size === 'l' || !size,
+      'euiControlBar--medium': size === 'm',
+      'euiControlBar--small': size === 's',
     });
 
     const tabClasses = classNames('euiControlBar__tab', {
-      'euiControlBar__tab--active': this.props.showContent,
+      'euiControlBar__tab--active': showContent,
     });
 
     const handleTabClick = (
@@ -106,7 +126,7 @@ export class EuiControlBar extends Component<
         case 'button':
           return (
             <EuiButton
-              key={control.id}
+              key={control.id + index}
               aria-label={`Control Bar - ${control.label}`}
               onClick={control.onClick}
               data-test-subj={control.label}
@@ -118,11 +138,10 @@ export class EuiControlBar extends Component<
               <EuiText size="s">{control.label}</EuiText>
             </EuiButton>
           );
-          break;
         case 'icon':
           return (
             <EuiButtonIcon
-              key={control.id}
+              key={control.id + index}
               iconType={control.iconType}
               data-test-subj={control.label}
               aria-label={control.label}
@@ -131,10 +150,11 @@ export class EuiControlBar extends Component<
                 'euiControlBar__euiButtonIcon',
                 control.classNames
               )}
-              color={control.color ? control.color : 'ghost'}
+              color={control.color ? control.color : null}
             />
           );
-          break;
+        case 'divider':
+          return <div key={control.id} className="euiControlBar__divider" />;
         case 'spacer':
           return (
             <div
@@ -142,22 +162,20 @@ export class EuiControlBar extends Component<
               className="euiControlBar__spacer"
             />
           );
-          break;
         case 'text':
           return (
             <EuiText
-              color={control.color ? control.color : 'default'}
+              color={control.color ? control.color : 'ghost'}
               className="euiControlBar__euiText"
-              key={control.id}
+              key={control.id + index}
               size="s">
               {control.label}
             </EuiText>
           );
-          break;
         case 'tab':
-          const tab = (
+          return (
             <div
-              key={control.id}
+              key={control.id + index}
               className={`euiControlBar__tab ${
                 control.id === this.state.selectedTab ? tabClasses : ''
               }`}
@@ -167,8 +185,6 @@ export class EuiControlBar extends Component<
               <EuiText size="s">{control.label}</EuiText>
             </div>
           );
-          return tab;
-          break;
       }
     };
 
