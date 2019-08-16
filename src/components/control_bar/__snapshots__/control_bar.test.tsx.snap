@@ -3,7 +3,7 @@
 exports[`EuiControlBar is rendered 1`] = `
 <div
   aria-label="aria-label"
-  class="euiControlBar testClass1 testClass2"
+  class="euiControlBar testClass1 testClass2 euiControlBar--large"
   data-test-subj="test subject string"
 >
   <div
@@ -11,7 +11,7 @@ exports[`EuiControlBar is rendered 1`] = `
   >
     <button
       aria-label="Control Bar - Sound the Alarm"
-      class="euiButton euiButton--ghost euiControlBar__euiButton null"
+      class="euiButton euiButton--ghost euiControlBar__euiButton"
       data-test-subj="Sound the Alarm"
       type="button"
     >
@@ -31,7 +31,7 @@ exports[`EuiControlBar is rendered 1`] = `
     </button>
     <button
       aria-label="Control Bar - Close the Hatch"
-      class="euiButton euiButton--ghost euiControlBar__euiButton null"
+      class="euiButton euiButton--ghost euiControlBar__euiButton"
       data-test-subj="Close the Hatch"
       type="button"
     >
@@ -48,6 +48,22 @@ exports[`EuiControlBar is rendered 1`] = `
           </div>
         </span>
       </span>
+    </button>
+    <button
+      aria-label="Sample Icon"
+      class="euiButtonIcon euiControlBar__euiButtonIcon"
+      data-test-subj="Sample Icon"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
+        focusable="false"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      />
     </button>
   </div>
 </div>
