@@ -1,33 +1,51 @@
 .euiControlBar {
   background: lighten($euiColorInk, 5%);
   width: 100%;
-  height: $euiSizeXXL;
   color: $controlBarText;
   display: flex;
   flex-direction: column;
   position: fixed;
-  bottom: 0;
   left: 0;
-  transition: all $euiAnimSpeedNormal $euiAnimSlightResistance;
-  box-shadow: inset 0 2.5rem 0 $controlBarBackground, inset 0 100rem 0 $euiColorLightestShade;
+  box-shadow: inset 0 $euiSizeXXL 0 $controlBarBackground, inset 0 600rem 0 $euiColorLightestShade;
   z-index: $euiZNavigation;
+  transform: translateY(0);
+
+  &.euiControlBar--open {
+    animation-duration: $euiAnimSpeedNormal;
+    animation-timing-function: $euiAnimSlightResistance;
+    animation-fill-mode: forwards;
+  }
 
   &.euiControlBar--open.euiControlBar--large {
-    height: 90%;
+    animation-name: openPanelLarge;
   }
 
   &.euiControlBar--open.euiControlBar--medium {
-    height: 50%;
+    animation-name: openPanelMedium;
   }
 
   &.euiControlBar--open.euiControlBar--small {
-    height: 25%;
+    animation-name: openPanelMedium;
   }
 
+  &.euiControlBar--large {
+    height: 90%;
+    bottom: calc((90% - #{$euiSizeXXL}) * -1);
+  }
+
+  &.euiControlBar--medium {
+    height: 50%;
+    bottom: calc((50% - #{$euiSizeXXL}) * -1);
+  }
+
+  &.euiControlBar--small {
+    height: 25%;
+    bottom: calc((25% - #{$euiSizeXXL}) * -1);
+  }
 }
 
 .euiControlBar__controls {
-  height: 2.5rem;
+  height: $euiSizeXXL;
   width: 100%;
   display: flex;
   align-items: center;
@@ -35,7 +53,7 @@
 
 .euiControlBar__content {
   width: 100%;
-  height: calc(100% - 2.5rem);
+  height: calc(100% - #{$euiSizeXXL});
   background-color: $euiColorLightestShade;
   animation-name: showContent;
   animation-duration: $euiAnimSpeedSlow;
@@ -43,6 +61,36 @@
   animation-timing-function: $euiAnimSlightResistance;
   color: $euiColorDarkestShade;
   overflow-y: scroll;
+}
+
+@keyframes openPanelLarge {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-90%);
+  }
+}
+
+@keyframes openPanelMedium {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes openPanelSmall {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-25%);
+  }
 }
 
 @keyframes showContent {
@@ -56,7 +104,7 @@
 }
 
 .euiControlBar__euiButtonIcon {
-  min-width: 2.5rem;
+  min-width: $euiSizeXXL;
 }
 
 .euiControlBar__euiButton {

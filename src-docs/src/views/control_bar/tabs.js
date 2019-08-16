@@ -104,6 +104,8 @@ export class ControlBarWithTabs extends React.Component {
           width: '100%',
           height: '400px',
           position: 'relative',
+          overflow: 'hidden',
+          paddingTop: '.5rem',
         }}>
         <EuiButton onClick={this.toggle.bind(this)}>Toggle</EuiButton>
         <EuiControlBar
