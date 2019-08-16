@@ -1,6 +1,6 @@
 import React, { Component, HTMLAttributes } from 'react';
 import classNames from 'classnames';
-import { CommonProps, PropsOf } from '../common';
+import { CommonProps, PropsOf, ExclusiveUnion } from '../common';
 // @ts-ignore-next-line
 import { EuiButton, EuiButtonIcon } from '../button';
 import { EuiText } from '../text';
@@ -49,13 +49,16 @@ interface IconControl {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export type Control =
-  | ButtonControl
-  | TabControl
-  | TextControl
-  | IconControl
-  | DivideControl
-  | SpacerControl;
+export type Control = ExclusiveUnion<
+  ExclusiveUnion<
+    ExclusiveUnion<
+      ExclusiveUnion<ExclusiveUnion<ButtonControl, TabControl>, TextControl>,
+      IconControl
+    >,
+    DivideControl
+  >,
+  SpacerControl
+>;
 
 export type EuiControlBarProps = HTMLAttributes<HTMLDivElement> &
   CommonProps & {
