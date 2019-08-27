@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { CommonProps, PropsOf, ExclusiveUnion } from '../common';
 // @ts-ignore-next-line
 import { EuiButton, EuiButtonIcon } from '../button';
+import { EuiPortal } from '../portal';
 import { EuiText } from '../text';
 
 interface ButtonControl {
@@ -192,16 +193,18 @@ export class EuiControlBar extends Component<
     };
 
     return (
-      <div className={classes} aria-label="Control Bar" {...rest}>
-        <div className="euiControlBar__controls">
-          {controls.map((control, index) => {
-            return controlItem(control, index);
-          })}
+      <EuiPortal>
+        <div className={classes} aria-label="Control Bar" {...rest}>
+          <div className="euiControlBar__controls">
+            {controls.map((control, index) => {
+              return controlItem(control, index);
+            })}
+          </div>
+          {this.props.showContent ? (
+            <div className="euiControlBar__content">{children}</div>
+          ) : null}
         </div>
-        {this.props.showContent ? (
-          <div className="euiControlBar__content">{children}</div>
-        ) : null}
-      </div>
+      </EuiPortal>
     );
   }
 }

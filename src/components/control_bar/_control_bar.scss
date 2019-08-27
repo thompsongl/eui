@@ -1,11 +1,11 @@
 .euiControlBar {
   background: lighten($euiColorInk, 5%);
-  width: 100%;
+  width: calc(100% - 3rem);
   color: $controlBarText;
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: 0;
+  left: 3rem;
   box-shadow: inset 0 $euiSizeXXL 0 $controlBarBackground, inset 0 600rem 0 $euiColorLightestShade;
   z-index: $euiZNavigation;
   transform: translateY(0);

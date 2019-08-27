@@ -2,16 +2,7 @@ $controlBarBackground: lightOrDarkTheme($euiColorDarkestShade, $euiColorInk);
 $controlBarText: lighten(makeHighContrastColor($euiColorLightestShade, $controlBarBackground), 20%);
 $controlBarBorderColor: rgba(255, 255, 255, .2);
 
-$colorVariables: (
-  primary: $euiColorPrimary,
-  secondary: $euiColorSecondary,
-  accent: $euiColorAccent,
-  warning: $euiColorWarning,
-  danger: $euiColorDanger,
-  ghost: $euiColorGhost,
-);
-
-@each $colorName, $colorValue in $colorVariables {
+@each $colorName, $colorValue in $buttonTypes {
   .euiControlBar__controls {
     .euiText--#{$colorName} {
       color: makeHighContrastColor($colorValue, $controlBarBackground);
