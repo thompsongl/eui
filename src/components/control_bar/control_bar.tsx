@@ -9,7 +9,7 @@ import { EuiText } from '../text';
 interface ButtonControl {
   controlType: 'button';
   id: string;
-  color?: string;
+  color?: PropsOf<typeof EuiButton>['color'];
   label: string;
   classNames?: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -46,7 +46,7 @@ interface IconControl {
   iconType: string;
   label: string;
   classNames?: string;
-  color?: string;
+  color?: PropsOf<typeof EuiButtonIcon>['color'];
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -154,7 +154,7 @@ export class EuiControlBar extends Component<
                 'euiControlBar__euiButtonIcon',
                 control.classNames
               )}
-              color={control.color ? control.color : null}
+              color={control.color ? control.color : 'ghost'}
             />
           );
         case 'divider':

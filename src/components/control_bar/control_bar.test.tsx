@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'enzyme';
+import { mount } from 'enzyme';
 import { requiredProps } from '../../test/required_props';
 import { EuiControlBar, Control } from './control_bar';
 
@@ -30,7 +30,7 @@ const controls: Control[] = [
 
 describe('EuiControlBar', () => {
   test('is rendered', () => {
-    const component = render(
+    const component = mount(
       <EuiControlBar controls={controls} {...requiredProps} />
     );
 

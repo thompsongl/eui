@@ -1,70 +1,225 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EuiControlBar is rendered 1`] = `
-<div
+<EuiControlBar
   aria-label="aria-label"
-  class="euiControlBar testClass1 testClass2 euiControlBar--large"
+  className="testClass1 testClass2"
+  controls={
+    Array [
+      Object {
+        "controlType": "button",
+        "id": "sound_the_alarm",
+        "label": "Sound the Alarm",
+        "onClick": [Function],
+      },
+      Object {
+        "controlType": "button",
+        "id": "close_the_hatch",
+        "label": "Close the Hatch",
+        "onClick": [Function],
+      },
+      Object {
+        "controlType": "icon",
+        "iconType": "alert",
+        "id": "sample_icon",
+        "label": "Sample Icon",
+      },
+    ]
+  }
   data-test-subj="test subject string"
 >
-  <div
-    class="euiControlBar__controls"
-  >
-    <button
-      aria-label="Control Bar - Sound the Alarm"
-      class="euiButton euiButton--ghost euiControlBar__euiButton"
-      data-test-subj="Sound the Alarm"
-      type="button"
-    >
-      <span
-        class="euiButton__content"
-      >
-        <span
-          class="euiButton__text"
-        >
+  <EuiPortal>
+    <Portal
+      containerInfo={
+        <div>
           <div
-            class="euiText euiText--small"
+            aria-label="aria-label"
+            class="euiControlBar testClass1 testClass2 euiControlBar--large"
+            data-test-subj="test subject string"
           >
-            Sound the Alarm
+            <div
+              class="euiControlBar__controls"
+            >
+              <button
+                aria-label="Control Bar - Sound the Alarm"
+                class="euiButton euiButton--ghost euiControlBar__euiButton"
+                data-test-subj="Sound the Alarm"
+                type="button"
+              >
+                <span
+                  class="euiButton__content"
+                >
+                  <span
+                    class="euiButton__text"
+                  >
+                    <div
+                      class="euiText euiText--small"
+                    >
+                      Sound the Alarm
+                    </div>
+                  </span>
+                </span>
+              </button>
+              <button
+                aria-label="Control Bar - Close the Hatch"
+                class="euiButton euiButton--ghost euiControlBar__euiButton"
+                data-test-subj="Close the Hatch"
+                type="button"
+              >
+                <span
+                  class="euiButton__content"
+                >
+                  <span
+                    class="euiButton__text"
+                  >
+                    <div
+                      class="euiText euiText--small"
+                    >
+                      Close the Hatch
+                    </div>
+                  </span>
+                </span>
+              </button>
+              <button
+                aria-label="Sample Icon"
+                class="euiButtonIcon euiButtonIcon--ghost euiControlBar__euiButtonIcon"
+                data-test-subj="Sample Icon"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
+                  focusable="false"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </button>
+            </div>
           </div>
-        </span>
-      </span>
-    </button>
-    <button
-      aria-label="Control Bar - Close the Hatch"
-      class="euiButton euiButton--ghost euiControlBar__euiButton"
-      data-test-subj="Close the Hatch"
-      type="button"
+        </div>
+      }
     >
-      <span
-        class="euiButton__content"
+      <div
+        aria-label="aria-label"
+        className="euiControlBar testClass1 testClass2 euiControlBar--large"
+        data-test-subj="test subject string"
       >
-        <span
-          class="euiButton__text"
+        <div
+          className="euiControlBar__controls"
         >
-          <div
-            class="euiText euiText--small"
+          <EuiButton
+            aria-label="Control Bar - Sound the Alarm"
+            className="euiControlBar__euiButton"
+            color="ghost"
+            data-test-subj="Sound the Alarm"
+            key="sound_the_alarm0"
+            onClick={[Function]}
           >
-            Close the Hatch
-          </div>
-        </span>
-      </span>
-    </button>
-    <button
-      aria-label="Sample Icon"
-      class="euiButtonIcon euiControlBar__euiButtonIcon"
-      data-test-subj="Sample Icon"
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        class="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
-        focusable="false"
-        height="16"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-    </button>
-  </div>
-</div>
+            <button
+              aria-label="Control Bar - Sound the Alarm"
+              className="euiButton euiButton--ghost euiControlBar__euiButton"
+              data-test-subj="Sound the Alarm"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="euiButton__content"
+              >
+                <span
+                  className="euiButton__text"
+                >
+                  <EuiText
+                    size="s"
+                  >
+                    <div
+                      className="euiText euiText--small"
+                    >
+                      Sound the Alarm
+                    </div>
+                  </EuiText>
+                </span>
+              </span>
+            </button>
+          </EuiButton>
+          <EuiButton
+            aria-label="Control Bar - Close the Hatch"
+            className="euiControlBar__euiButton"
+            color="ghost"
+            data-test-subj="Close the Hatch"
+            key="close_the_hatch1"
+            onClick={[Function]}
+          >
+            <button
+              aria-label="Control Bar - Close the Hatch"
+              className="euiButton euiButton--ghost euiControlBar__euiButton"
+              data-test-subj="Close the Hatch"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="euiButton__content"
+              >
+                <span
+                  className="euiButton__text"
+                >
+                  <EuiText
+                    size="s"
+                  >
+                    <div
+                      className="euiText euiText--small"
+                    >
+                      Close the Hatch
+                    </div>
+                  </EuiText>
+                </span>
+              </span>
+            </button>
+          </EuiButton>
+          <EuiButtonIcon
+            aria-label="Sample Icon"
+            className="euiControlBar__euiButtonIcon"
+            color="ghost"
+            data-test-subj="Sample Icon"
+            iconType="alert"
+            key="sample_icon2"
+          >
+            <button
+              aria-label="Sample Icon"
+              className="euiButtonIcon euiButtonIcon--ghost euiControlBar__euiButtonIcon"
+              data-test-subj="Sample Icon"
+              type="button"
+            >
+              <EuiIcon
+                aria-hidden="true"
+                className="euiButtonIcon__icon"
+                size="m"
+                type="alert"
+              >
+                <EuiIconEmpty
+                  aria-hidden="true"
+                  className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
+                  focusable="false"
+                  style={null}
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="euiIcon euiIcon--medium euiIcon-isLoading euiButtonIcon__icon"
+                    focusable="false"
+                    height={16}
+                    style={null}
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                  />
+                </EuiIconEmpty>
+              </EuiIcon>
+            </button>
+          </EuiButtonIcon>
+        </div>
+      </div>
+    </Portal>
+  </EuiPortal>
+</EuiControlBar>
 `;
