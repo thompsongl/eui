@@ -56,7 +56,11 @@ exports['EuiSuperSelect is rendered 1'] = `
 </div>
 `;
 
+<<<<<<< HEAD
 exports['EuiSuperSelect props compressed is rendered 1'] = `
+=======
+exports[`EuiSuperSelect props compressed is rendered 1`] = `
+>>>>>>> Fix snap
 <div
   class="euiPopover euiPopover--anchorDownCenter euiPopover--displayBlock euiSuperSelect"
 >
@@ -112,7 +116,11 @@ exports['EuiSuperSelect props compressed is rendered 1'] = `
 </div>
 `;
 
+<<<<<<< HEAD
 exports['EuiSuperSelect props custom display is propagated to dropdown 1'] = `
+=======
+exports[`EuiSuperSelect props custom display is propagated to dropdown 1`] = `
+>>>>>>> Fix snap
 <div
   class="euiPopover euiPopover--anchorDownCenter euiPopover--displayBlock euiSuperSelect"
 >
@@ -1003,11 +1011,6 @@ exports['EuiSuperSelect props more props are propogated to each option 2'] = `
                                   onClick={[Function]}
                                   onKeyDown={[Function]}
                                   role="option"
-                                  style={
-                                    Object {
-                                      "width": null,
-                                    }
-                                  }
                                 >
                                   <button
                                     aria-selected={true}
@@ -1062,11 +1065,6 @@ exports['EuiSuperSelect props more props are propogated to each option 2'] = `
                                   onClick={[Function]}
                                   onKeyDown={[Function]}
                                   role="option"
-                                  style={
-                                    Object {
-                                      "width": null,
-                                    }
-                                  }
                                 >
                                   <button
                                     aria-selected={false}
