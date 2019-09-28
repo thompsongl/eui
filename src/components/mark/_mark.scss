@@ -1,0 +1,39 @@
+@import '../../global_styling/context';
+
+.euiMark {
+  color: inherit;
+
+  &.euiMark--mark {
+    background-color: $euiColorVis5;
+  }
+
+  &.euiMark--strong {
+    background-color: transparent;
+    font-weight: $euiFontWeightBold;
+  }
+
+  &.euiMark--em {
+    background-color: transparent;
+    font-style: italic;
+  }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/HTML/Element/mark#Accessibility_concerns
+.euiMark:before,
+.euiMark:after {
+  clip-path: inset(100%);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.euiMark:before {
+  content: ' [highlight start] ';
+}
+
+.euiMark:after {
+  content: ' [highlight end] ';
+}
