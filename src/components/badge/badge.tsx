@@ -18,9 +18,9 @@ const light = css`
   @import 'badge_light.module';
 `;
 
-const dark = css`
-  @import 'badge_dark.module';
-`;
+// const dark = css`
+//   @import 'badge_dark.module';
+// `;
 
 type IconSide = 'left' | 'right';
 
@@ -105,10 +105,10 @@ export const EuiBadge: FunctionComponent<EuiBadgeProps> = ({
   onClickAriaLabel,
   iconOnClickAriaLabel,
   closeButtonProps,
-  theme = 'light',
+  // theme = 'light',
   ...rest
 }) => {
-  const styles = theme !== 'dark' ? light : dark;
+  const styles = light;
   const colorToClassNameMap: { [color in IconColor]: string } = {
     default: styles['euiBadge--default'],
     primary: styles['euiBadge--primary'],
