@@ -2,6 +2,10 @@
 
 - Converted `EuiRadio` and `EuiRadioGroup` to TypeScript ([#2438](https://github.com/elastic/eui/pull/2438))
 
+**Bug fixes**
+
+- Fixed missing misc. button and link type definition exports ([#2434](https://github.com/elastic/eui/pull/2434))
+
 ## [`14.5.0`](https://github.com/elastic/eui/tree/v14.5.0)
 
 - Update Elastic-Charts to version 13.0.0 and updated the theme object accordingly ([#2381](https://github.com/elastic/eui/pull/2381))
