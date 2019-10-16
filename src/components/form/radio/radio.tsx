@@ -5,9 +5,9 @@ import React, {
   ReactNode,
 } from 'react';
 import classNames from 'classnames';
-import { CommonProps } from '../../common';
+import { CommonProps, Omit } from '../../common';
 
-export interface EuiRadioProps {
+export interface RadioProps {
   autoFocus?: boolean;
   /**
    * when `true` creates a shorter height radio row
@@ -16,14 +16,17 @@ export interface EuiRadioProps {
   label?: ReactNode;
   name?: string;
   value?: string;
-  checked?: boolean;
+  checked: boolean;
   disabled?: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>; // overriding to make it required
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }
 
-export const EuiRadio: FunctionComponent<
-  CommonProps & HTMLAttributes<HTMLDivElement> & EuiRadioProps
-> = ({
+export interface EuiRadioProps
+  extends CommonProps,
+    Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>,
+    RadioProps {}
+
+export const EuiRadio: FunctionComponent<EuiRadioProps> = ({
   className,
   id,
   name,
@@ -74,10 +77,4 @@ export const EuiRadio: FunctionComponent<
       {optionalLabel}
     </div>
   );
-};
-
-EuiRadio.defaultProps = {
-  checked: false,
-  disabled: false,
-  compressed: false,
 };
