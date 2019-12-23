@@ -37,7 +37,8 @@
     "version": "node ./scripts/update-changelog-version.js"
   },
   "reactSnap": {
-    "source": "docs"
+    "source": "docs",
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
   },
   "repository": {
     "type": "git",
