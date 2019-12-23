@@ -13,7 +13,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiTitle,
-  // EuiAspectRatio,
+  EuiAspectRatio,
   EuiIcon,
 } from '../../../../src/components';
 
@@ -55,6 +55,17 @@ export default {
 
       <EuiSpacer size="l" />
 
+      <EuiAspectRatio width={16} height={9} maxWidth={700}>
+        <iframe
+          title="Building and Testing for Accessibility with EUI"
+          width="560"
+          height="315"
+          src="https://www.youtube-nocookie.com/embed/iDXoEe8NkrE"
+          frameBorder="0"
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </EuiAspectRatio>
       <EuiSpacer size="xl" />
     </>
   ),
