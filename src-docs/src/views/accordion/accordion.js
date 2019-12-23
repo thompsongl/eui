@@ -10,7 +10,7 @@ export default () => (
       <EuiText>
         <p>
           Any content inside of <EuiCode>EuiAccordion</EuiCode> will appear
-          here.
+          here. Testing.
         </p>
       </EuiText>
     </EuiAccordion>
