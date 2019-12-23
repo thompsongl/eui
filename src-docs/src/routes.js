@@ -1,7 +1,8 @@
 import React, { createElement } from 'react';
 
 import { useRouterHistory } from 'react-router';
-import createHashHistory from 'history/lib/createHashHistory';
+
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import { GuidePage, GuideSection } from './components';
 
@@ -235,6 +236,7 @@ const createExample = example => {
   }
 
   const { title, intro, sections, beta } = example;
+
   sections.forEach(section => {
     section.id = slugify(section.title || title);
   });
@@ -446,7 +448,7 @@ const allRoutes = navigation.reduce((accummulatedRoutes, section) => {
 }, []);
 
 export default {
-  history: useRouterHistory(createHashHistory)(), // eslint-disable-line react-hooks/rules-of-hooks
+  history: useRouterHistory(createBrowserHistory)(), // eslint-disable-line react-hooks/rules-of-hooks
   navigation,
 
   getRouteForPath: path => {
