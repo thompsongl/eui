@@ -333,6 +333,28 @@ export class EuiControlBar extends Component<
             );
           }
 
+          const {
+            label,
+            'aria-labelledby': ariaLabelledby,
+            'aria-hidden': ariaHidden,
+            ...buttonIconRest
+          } = rest as IconButtonControlType;
+
+          let buttonIconProps: ExclusiveUnion<
+            { 'aria-hidden': true },
+            ExclusiveUnion<
+              { label: React.ReactNode },
+              { 'aria-labelledby': string }
+            >
+          > = { label: label };
+          if (ariaHidden && ariaHidden === true) {
+            buttonIconProps = { 'aria-hidden': ariaHidden };
+          } else {
+            if (ariaLabelledby) {
+              buttonIconProps = { 'aria-labelledby': ariaLabelledby };
+            }
+          }
+
           return (
             <EuiButtonIcon
               key={id + index}
@@ -341,8 +363,9 @@ export class EuiControlBar extends Component<
               onClick={onClick}
               href={href}
               color={color as EuiButtonIconProps['color']}
-              {...rest}
               size="s"
+              {...buttonIconProps}
+              {...buttonIconRest}
             />
           );
         }
