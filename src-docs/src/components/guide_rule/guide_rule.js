@@ -10,15 +10,15 @@ import { componentClassName as guideRuleTitleClass } from './guide_rule_title';
 export const GuideRule = ({ children, heading, description, ...rest }) => {
   const theme = useTheme();
 
-  let siblingMarginTop = theme.sizes.euiSizeL;
+  let siblingMarginTop = theme.euiSizeL;
   if (description) {
-    siblingMarginTop = theme.sizes.euiSizeXXL * 1.5;
+    siblingMarginTop = theme.euiSizeXXL * 1.5;
   }
   if (heading) {
-    siblingMarginTop = theme.sizes.euiSizeXXL * 2;
+    siblingMarginTop = theme.euiSizeXXL * 2;
   }
   const guideRule = css`
-    margin-top: ${theme.sizes.euiSizeXXL}px;
+    margin-top: ${theme.euiSizeXXL}px;
 
     & + & {
       margin-top: ${siblingMarginTop}px;

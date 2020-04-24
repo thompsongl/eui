@@ -12,7 +12,7 @@ export const GuideRuleDescription = ({
 }) => {
   const theme = useTheme();
   const guideRule_Description = css`
-    margin-bottom: ${theme.sizes.euiSizeXL}px;
+    margin-bottom: ${theme.euiSizeXL}px;
   `;
 
   let headingNode;

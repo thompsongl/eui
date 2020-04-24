@@ -13,10 +13,10 @@ export const GuideRuleTitle = ({ children, className, ...rest }) => {
   const classes = classNames(componentClassName, className);
 
   const guideRuleTitle = css`
-    margin-top: ${theme.sizes.euiSizeXXL}px;
-    border-top: 1px solid ${theme.borders.euiBorderColor};
-    padding-top: ${theme.sizes.euiSizeXXL}px;
-    margin-bottom: ${theme.sizes.euiSizeS}px;
+    margin-top: ${theme.euiSizeXXL}px;
+    border-top: 1px solid ${theme.euiBorderColor};
+    padding-top: ${theme.euiSizeXXL}px;
+    margin-bottom: ${theme.euiSizeS}px;
   `;
 
   return (

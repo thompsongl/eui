@@ -1,8 +1,8 @@
 import React from 'react';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import { EUI_THEMES, EUI_THEME } from '../../../../src/themes';
-import EuiLightTheme from '../../../../src/theme_light';
-import EuiDarkTheme from '../../../../src/theme_dark';
+import EuiLightTheme from './theme_light';
+import EuiDarkTheme from './theme_dark';
 // @ts-ignore
 import { applyTheme } from '../../services';
 

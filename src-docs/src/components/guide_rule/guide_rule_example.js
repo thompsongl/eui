@@ -31,18 +31,18 @@ export const GuideRuleExample = ({
 
   const guideRuleExamplePanel = css`
     border-bottom: 2px solid;
-    margin-bottom: ${theme.sizes.euiSizeS}px;
+    margin-bottom: ${theme.euiSizeS}px;
     flex-grow: 1; /* 1 */
 
-    ${!panel && `padding-bottom: ${theme.sizes.euiSize}px;`}
+    ${!panel && `padding-bottom: ${theme.euiSize}px;`}
 
-    ${type === 'do' && `border-bottom-color: ${theme.colors.euiColorSuccess};`}
+    ${type === 'do' && `border-bottom-color: ${theme.euiColorSuccess};`}
 
-    ${type === 'dont' && `border-bottom-color: ${theme.colors.euiColorDanger};`}
+    ${type === 'dont' && `border-bottom-color: ${theme.euiColorDanger};`}
 
     ${frame &&
-      `padding: ${theme.sizes.euiSizeL}px;
-      background-color: ${theme.colors.euiColorLightestShade};
+      `padding: ${theme.euiSizeL}px;
+      background-color: ${theme.euiColorLightestShade};
       display: flex;
       align-items: center;
       justify-content: space-around;`}
@@ -50,15 +50,14 @@ export const GuideRuleExample = ({
 
   const guideRuleExampleCaption = css`
     @include euiFontSizeS; // TODO
-    font-size: ${theme.typography.euiFontSizeS}px; // TODO
-    line-height: ${theme.typography.euiLineHeight}; // TODO
-    max-height: ${theme.typography.euiFontSizeS *
-      theme.typography.euiLineHeight}px; /* 1 */
+    font-size: ${theme.euiFontSizeS}px; // TODO
+    line-height: ${theme.euiLineHeight}; // TODO
+    max-height: ${theme.euiFontSizeS * theme.euiLineHeight}px; /* 1 */
     overflow-y: visible; /* 1 */
 
-    ${type === 'do' && `color: ${theme.colors.euiColorSuccessText};`}
+    ${type === 'do' && `color: ${theme.euiColorSuccessText};`}
 
-    ${type === 'dont' && `color: ${theme.colors.euiColorDanger};`}
+    ${type === 'dont' && `color: ${theme.euiColorDanger};`}
   `;
 
   const ChildrenComponent = panel ? EuiPanel : 'div';
