@@ -55,6 +55,13 @@ function isEuiSearchBarProps<T>(
   return typeof x !== 'boolean';
 }
 
+function getSearch(search?: Search) {
+  // Can't use `typeof search` because of use in public static method (getDerivedStateFromProps)
+  return !search || search === true || search === false
+    ? search
+    : { ...search };
+}
+
 type Search = boolean | EuiSearchBarProps;
 
 interface PaginationOptions {
@@ -280,7 +287,7 @@ export class EuiInMemoryTable<T> extends Component<
       return {
         prevProps: {
           ...prevState.prevProps,
-          search: nextProps.search,
+          search: getSearch(nextProps.search),
         },
         query: getQueryFromSearch(nextProps.search, false),
       };
@@ -306,9 +313,9 @@ export class EuiInMemoryTable<T> extends Component<
         items: props.items,
         sortName,
         sortDirection,
-        search,
+        search: getSearch(search),
       },
-      search: search,
+      search,
       query: getQueryFromSearch(search, true),
       pageIndex: pageIndex || 0,
       pageSize,
@@ -402,7 +409,7 @@ export class EuiInMemoryTable<T> extends Component<
     this.setState(state => ({
       prevProps: {
         ...state.prevProps,
-        search,
+        search: getSearch(search),
       },
       query,
       pageIndex: 0,
