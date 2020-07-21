@@ -57,12 +57,13 @@ const webpackConfig = {
             plugins: [
               '@babel/plugin-transform-runtime',
               '@babel/plugin-transform-destructuring',
+              '@babel/plugin-transform-template-literals',
             ],
             sourceType: 'unambiguous',
           },
         },
         include: [
-          /node_modules\/((html-format|vnopts|react-view|@babel\/code-frame|@babel\/template|@babel\/traverse|@babel\/parser|@babel\/core|@babel\/helper-annotate-as-pure|@babel\/generator|@babel\/helper-builder-react-jsx-experimental|@babel\/highlight|@babel\/plugin-syntax-jsx|@miksu\/prettier|ansi-styles|chalk|gensync|is-fullwidth-code-point|jest-docblock|jsesc)\/).*/,
+          /node_modules\/((html-format|vnopts|react-view|@babel\/code-frame|@babel\/template|@babel\/types|@babel\/traverse|@babel\/parser|@babel\/core|@babel\/helper-annotate-as-pure|@babel\/generator|@babel\/helper-builder-react-jsx-experimental|@babel\/highlight|@babel\/plugin-syntax-jsx|@miksu\/prettier|ansi-styles|chalk|gensync|is-fullwidth-code-point|jest-docblock|jsesc)\/).*/,
         ],
       },
       {
