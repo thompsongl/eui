@@ -515,7 +515,7 @@ export const SelectableExample = {
               By default, the search box will only use this to match the search
               term against, but you can supply a separate{' '}
               <EuiCode>searchableLabel</EuiCode> that combines the label and
-              meta data to search on.
+              metadata to search on.
             </li>
             <li>
               <EuiCode>icon</EuiCode>: Only display the solution or
