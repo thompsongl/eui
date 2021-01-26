@@ -73,10 +73,6 @@ interface ActionReset {
   type: 'EUI_RESIZABLE_RESET';
 }
 
-interface ActionInit {
-  type: 'EUI_RESIZABLE_CONTAINER_INIT';
-}
-
 export interface ActionDragStart {
   type: 'EUI_RESIZABLE_DRAG_START';
   payload: { prevPanelId: string; nextPanelId: string; position: number };
@@ -153,7 +149,6 @@ interface ActionOnChange {
 
 export type EuiResizableContainerAction =
   | ActionReset
-  | ActionInit
   | ActionRegisterPanel
   | ActionDeregisterPanel
   | ActionRegisterResizer
@@ -169,7 +164,6 @@ export type EuiResizableContainerAction =
 
 export interface EuiResizableContainerActions {
   reset: () => void;
-  initContainer: () => void;
   registerPanel: (panel: EuiResizablePanelController) => void;
   deregisterPanel: (panelId: EuiResizablePanelController['id']) => void;
   registerResizer: (resizer: EuiResizableButtonController) => void;

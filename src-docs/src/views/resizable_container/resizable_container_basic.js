@@ -18,7 +18,7 @@ export default () => {
     dom.current.innerHTML = 'YOLO';
   });
   useEffect(() => {
-    setTimeout(() => setStyles({ display: 'flex' }), 1000);
+    setTimeout(() => setStyles({ display: 'flex' }), 3000);
   }, []);
   return (
     <EuiResizableContainer style={{ ...styles, height: '200px' }}>

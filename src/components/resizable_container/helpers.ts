@@ -152,12 +152,6 @@ export const useContainerCallbacks = ({
     };
 
     switch (action.type) {
-      case 'EUI_RESIZABLE_CONTAINER_INIT': {
-        return {
-          ...state,
-          containerSize: getContainerSize(),
-        };
-      }
       case 'EUI_RESIZABLE_PANEL_REGISTER': {
         const { panel } = action.payload;
         return {
@@ -229,19 +223,19 @@ export const useContainerCallbacks = ({
 
         const prevPanelMin = getPanelMinSize(
           prevPanel.minSize,
-          state.containerSize
+          getContainerSize()
         );
         const nextPanelMin = getPanelMinSize(
           nextPanel.minSize,
-          state.containerSize
+          getContainerSize()
         );
         const prevPanelSize = pxToPercent(
           prevPanel.getSizePx() + delta,
-          state.containerSize
+          getContainerSize()
         );
         const nextPanelSize = pxToPercent(
           nextPanel.getSizePx() - delta,
-          state.containerSize
+          getContainerSize()
         );
 
         if (prevPanelSize >= prevPanelMin && nextPanelSize >= nextPanelMin) {
@@ -271,19 +265,19 @@ export const useContainerCallbacks = ({
 
         const prevPanelMin = getPanelMinSize(
           prevPanel.minSize,
-          state.containerSize
+          getContainerSize()
         );
         const nextPanelMin = getPanelMinSize(
           nextPanel.minSize,
-          state.containerSize
+          getContainerSize()
         );
         const prevPanelSize = pxToPercent(
           prevPanel.getSizePx() - (direction === 'backward' ? 10 : -10),
-          state.containerSize
+          getContainerSize()
         );
         const nextPanelSize = pxToPercent(
           nextPanel.getSizePx() - (direction === 'forward' ? 10 : -10),
-          state.containerSize
+          getContainerSize()
         );
 
         if (prevPanelSize >= prevPanelMin && nextPanelSize >= nextPanelMin) {
@@ -377,7 +371,7 @@ export const useContainerCallbacks = ({
         let newPanelSize = shouldCollapse
           ? pxToPercent(
               !currentPanel.mode ? 0 : 24, // size of the default toggle button
-              state.containerSize
+              getContainerSize()
             )
           : currentPanel.prevSize;
 
@@ -408,7 +402,7 @@ export const useContainerCallbacks = ({
           Object.values(otherPanels).some(
             (panel) =>
               panel.size + delta <
-              getPanelMinSize(panel.minSize, state.containerSize)
+              getPanelMinSize(panel.minSize, getContainerSize())
           )
         ) {
           // A toggling sequence has occurred where a to-be-opened panel is
@@ -524,7 +518,6 @@ export const useContainerCallbacks = ({
           ...initialState,
           panels: state.panels,
           resizers: state.resizers,
-          containerSize: state.containerSize,
         };
       }
       case 'EUI_RESIZABLE_ONCHANGE': {
@@ -547,10 +540,6 @@ export const useContainerCallbacks = ({
   const actions: EuiResizableContainerActions = useMemo(() => {
     return {
       reset: () => dispatch({ type: 'EUI_RESIZABLE_RESET' }),
-      initContainer: () =>
-        dispatch({
-          type: 'EUI_RESIZABLE_CONTAINER_INIT',
-        }),
       registerPanel: (panel: EuiResizablePanelController) =>
         dispatch({
           type: 'EUI_RESIZABLE_PANEL_REGISTER',

@@ -20,7 +20,6 @@
 import React, {
   ReactNode,
   ReactElement,
-  useEffect,
   useRef,
   useCallback,
   CSSProperties,
@@ -32,7 +31,6 @@ import classNames from 'classnames';
 
 import { CommonProps } from '../common';
 import { keys } from '../../services';
-import { useResizeObserver } from '../observer/resize_observer';
 import { EuiResizableContainerContextProvider } from './context';
 import {
   EuiResizableButtonProps,
@@ -117,21 +115,6 @@ export const EuiResizableContainer: FunctionComponent<EuiResizableContainerProps
     containerRef,
     onPanelWidthChange,
   });
-
-  const initialize = useCallback(() => {
-    actions.initContainer();
-  }, [actions]);
-
-  const containerSize = useResizeObserver(
-    containerRef.current,
-    isHorizontal ? 'width' : 'height'
-  );
-
-  useEffect(() => {
-    if (containerSize.width > 0 && containerSize.height > 0) {
-      initialize();
-    }
-  }, [initialize, containerSize]);
 
   const onMouseDown = useCallback(
     (event: EuiResizableButtonMouseEvent) => {
@@ -275,7 +258,7 @@ export const EuiResizableContainer: FunctionComponent<EuiResizableContainerProps
         onTouchMove={onMouseMove}
         onTouchEnd={onMouseUp}
         {...rest}>
-        {!!reducerState.containerSize && render()}
+        {render()}
       </div>
     </EuiResizableContainerContextProvider>
   );
