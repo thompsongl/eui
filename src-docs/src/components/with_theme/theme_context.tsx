@@ -52,9 +52,8 @@ export class ThemeProvider extends React.Component<object, State> {
           changeTheme: this.changeTheme,
         }}>
         <EuiThemeProvider
-        // theme={DefaultEuiTheme}
-        // colorMode={theme.includes('light') ? 'light' : 'dark'}
-        >
+          // theme={DefaultEuiTheme}
+          colorMode={theme.includes('light') ? 'light' : 'dark'}>
           {children}
         </EuiThemeProvider>
       </ThemeContext.Provider>
