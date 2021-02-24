@@ -18,24 +18,29 @@
  */
 
 import chroma from 'chroma-js';
-import { buildTheme, computed, COLOR_MODE_KEY } from './utils';
-
-export const tint = (color: string, ratio: number) =>
-  chroma.mix(color, '#fff', ratio).hex();
-export const shade = (color: string, ratio: number) =>
-  chroma.mix(color, '#000', ratio).hex();
-// TODO
-const makeHighContrastColor = (color: string) => color;
-// TODO
-const makeDisabledContrastColor = (color: string) => color;
-// TODO
-const transparentize = (color: string, ratio: number) =>
-  ratio ? color : color;
+import {
+  buildTheme,
+  computed,
+  COLOR_MODE_KEY,
+  AMSTERDAM_NAME_KEY,
+  DEFAULT_NAME_KEY,
+} from './utils';
 
 const poles = {
   euiColorGhost: '#FFF',
   euiColorInk: '#000',
 };
+
+export const tint = (color: string, ratio: number) =>
+  chroma.mix(color, poles.euiColorGhost, ratio).hex();
+export const shade = (color: string, ratio: number) =>
+  chroma.mix(color, poles.euiColorInk, ratio).hex();
+const transparentize = (color: string, ratio: number) =>
+  chroma(color).alpha(ratio).css();
+// TODO
+const makeHighContrastColor = (color: string) => color;
+// TODO
+const makeDisabledContrastColor = (color: string) => color;
 
 const graysLight = {
   euiColorEmptyShade: '#FFF',
@@ -78,6 +83,20 @@ const textVariants = {
     ['colors.euiColorPrimaryText'],
     ([euiColorPrimaryText]) => euiColorPrimaryText
   ),
+};
+
+const type = {
+  // Font weights
+  euiFontWeightLight: 300,
+  euiFontWeightRegular: 400,
+  euiFontWeightMedium: 500,
+  euiFontWeightSemiBold: 600,
+  euiFontWeightBold: 700,
+  euiCodeFontWeightRegular: 400,
+  euiCodeFontWeightBold: 700,
+  // Line height
+  euiLineHeight: 1.5,
+  euiBodyLineHeight: 1,
 };
 
 /* DEFAULT THEME */
@@ -334,6 +353,7 @@ export const euiThemeDefault = {
     ...borderRadius,
     ...borders,
   },
+  type,
   buttons: {
     [COLOR_MODE_KEY]: {
       light: {
@@ -347,7 +367,7 @@ export const euiThemeDefault = {
   },
 };
 
-export const EuiThemeDefault = buildTheme(euiThemeDefault, 'EUI_THEME_DEFAULT');
+export const EuiThemeDefault = buildTheme(euiThemeDefault, DEFAULT_NAME_KEY);
 
 /* AMSTERDAM THEME */
 
@@ -401,7 +421,7 @@ export const amsterdam_light = {
   euiFocusBackgroundColor: computed(
     ['colors.euiColorPrimary', 'colors.euiFocusTransparency'],
     ([euiColorPrimary, euiFocusTransparency]) =>
-      transparentize(euiColorPrimary, euiFocusTransparency)
+      transparentize(euiColorPrimary, 1 - euiFocusTransparency)
   ),
 };
 
@@ -452,7 +472,7 @@ export const amsterdam_dark = {
   euiFocusBackgroundColor: computed(
     ['colors.euiColorPrimary', 'colors.euiFocusTransparency'],
     ([euiColorPrimary, euiFocusTransparency]) =>
-      transparentize(euiColorPrimary, euiFocusTransparency)
+      transparentize(euiColorPrimary, 1 - euiFocusTransparency)
   ),
 };
 
@@ -478,6 +498,10 @@ export const euiThemeAmsterdam = {
     ...amsterdam_borderRadius,
     ...borders,
   },
+  type: {
+    ...type,
+    euiBodyLineHeight: 1.142857143, // 16px from a 14px base font size to ensure it aligns to our 16px grid
+  },
   buttons: {
     [COLOR_MODE_KEY]: {
       light: {
@@ -490,5 +514,5 @@ export const euiThemeAmsterdam = {
 
 export const EuiThemeAmsterdam = buildTheme(
   euiThemeAmsterdam,
-  'EUI_THEME_AMSTERDAM'
+  AMSTERDAM_NAME_KEY
 );

@@ -18,8 +18,10 @@
  */
 
 import React, { HTMLAttributes, FunctionComponent } from 'react';
-import { CommonProps } from '../common';
+import { css } from '@emotion/react';
 import classNames from 'classnames';
+import { CommonProps } from '../common';
+import { useEuiTheme, isDefaultTheme } from '../../services';
 export type EuiMarkProps = HTMLAttributes<HTMLElement> &
   CommonProps & {
     /**
@@ -33,10 +35,20 @@ export const EuiMark: FunctionComponent<EuiMarkProps> = ({
   className,
   ...rest
 }) => {
+  const [theme] = useEuiTheme();
+  const euiMarkStyles = css`
+    background-color: ${isDefaultTheme(theme.themeName)
+      ? 'transparent'
+      : theme.colors.euiFocusBackgroundColor};
+    font-weight: ${theme.type.euiFontWeightBold};
+    // Override the browser's black color.
+    // Can't use 'inherit' because the text to background color contrast may not be sufficient
+    color: ${theme.colors.euiTextColor};
+  `;
   const classes = classNames('euiMark', className);
 
   return (
-    <mark className={classes} {...rest}>
+    <mark css={euiMarkStyles} className={classes} {...rest}>
       {children}
     </mark>
   );

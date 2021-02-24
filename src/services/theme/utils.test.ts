@@ -28,6 +28,7 @@ import {
   buildTheme,
   mergeDeep,
   currentColorModeOnly,
+  isDefaultTheme,
 } from './utils';
 
 describe('isInverseColorMode', () => {
@@ -258,6 +259,14 @@ describe('currentColorModeOnly', () => {
       colors: { primary: '#FFF' },
       sizes: { small: 8 },
       themeName: 'minimal',
+    });
+  });
+
+  describe('isDefaultTheme', () => {
+    it('returns true for the default name', () => {
+      expect(isDefaultTheme('EUI_THEME_DEFAULT')).toBe(true);
+      expect(isDefaultTheme('EUI_THEME_AMSTERDAM')).toBe(false);
+      expect(isDefaultTheme('CUSTOM_DEFAULT')).toBe(false);
     });
   });
 });

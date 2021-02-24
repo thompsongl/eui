@@ -134,6 +134,7 @@ export {
   getOn,
   mergeDeep,
   setOn,
+  isDefaultTheme,
   Computed,
   euiThemeDefault,
   EuiThemeDefault,
