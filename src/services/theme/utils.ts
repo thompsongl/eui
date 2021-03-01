@@ -19,7 +19,7 @@
 
 import {
   EuiThemeColorMode,
-  EuiThemeOverrides,
+  EuiThemeModifications,
   EuiThemeSystem,
   EuiThemeShape,
   EuiThemeComputed,
@@ -54,7 +54,7 @@ export const getColorMode = (
 export const getOn = (
   model: { [key: string]: any },
   _path: string,
-  colorMode: EuiThemeColorMode
+  colorMode?: EuiThemeColorMode
 ) => {
   const path = _path.split('.');
   let node = model;
@@ -63,7 +63,7 @@ export const getOn = (
     if (node.hasOwnProperty(segment) === false) {
       return undefined;
     }
-    if (segment === COLOR_MODE_KEY) {
+    if (colorMode && segment === COLOR_MODE_KEY) {
       if (node[segment].hasOwnProperty(colorMode) === false) {
         return undefined;
       } else {
@@ -110,7 +110,7 @@ export class Computed<T> {
 
   getValue(
     base: EuiThemeSystem | EuiThemeShape,
-    overrides: EuiThemeOverrides = {},
+    modifications: EuiThemeModifications = {},
     working: EuiThemeComputed,
     colorMode: EuiThemeColorMode
   ) {
@@ -118,7 +118,7 @@ export class Computed<T> {
       this.dependencies.map((dependency) => {
         return (
           getOn(working, dependency, colorMode) ??
-          getOn(overrides, dependency, colorMode) ??
+          getOn(modifications, dependency, colorMode) ??
           getOn(base, dependency, colorMode)
         );
       })
@@ -143,6 +143,7 @@ export const getComputed = <T = EuiThemeShape>(
   function loop(
     base: { [key: string]: any },
     over: { [key: string]: any },
+    checkExisting: boolean = false,
     path?: string
   ) {
     Object.keys(base).forEach((key) => {
@@ -152,23 +153,29 @@ export const getComputed = <T = EuiThemeShape>(
         // Intentional no-op
       } else {
         const newPath = path ? `${path}.${key}` : `${key}`;
-        const baseValue =
-          base[key] instanceof Computed
-            ? base[key].getValue(base.root, over.root, output, colorMode)
-            : base[key];
-        const overValue =
-          over[key] instanceof Computed
-            ? over[key].getValue(base.root, over.root, output, colorMode)
-            : over[key];
-        if (isObject(baseValue)) {
-          loop(baseValue, overValue ?? {}, newPath);
-        } else {
-          setOn(output, newPath, overValue ?? baseValue);
+        const existing = checkExisting && getOn(output, newPath);
+        if (!existing || isObject(existing)) {
+          const baseValue =
+            base[key] instanceof Computed
+              ? base[key].getValue(base.root, over.root, output, colorMode)
+              : base[key];
+          const overValue =
+            over[key] instanceof Computed
+              ? over[key].getValue(base.root, over.root, output, colorMode)
+              : over[key];
+          if (isObject(baseValue)) {
+            loop(baseValue, overValue ?? {}, checkExisting, newPath);
+          } else {
+            setOn(output, newPath, overValue ?? baseValue);
+          }
         }
       }
     });
   }
+  // Compute standard theme values and apply overrides
   loop(base, over);
+  // Compute and apply extension values only
+  loop(over, {}, true);
   return currentColorModeOnly<T>(colorMode, (output as unknown) as T);
 };
 

@@ -20,7 +20,7 @@
 export {
   EuiSystemContext,
   EuiThemeContext,
-  EuiOverrideContext,
+  EuiModificationsContext,
   EuiColorModeContext,
 } from './context';
 export { useEuiTheme, withEuiTheme } from './hooks';
@@ -41,7 +41,7 @@ export {
   EuiThemeColor,
   EuiThemeColorMode,
   EuiThemeComputed,
-  EuiThemeOverrides,
+  EuiThemeModifications,
   EuiThemeShape,
   EuiThemeSystem,
 } from './types';
