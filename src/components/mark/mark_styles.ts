@@ -17,29 +17,18 @@
  * under the License.
  */
 
-import React, { HTMLAttributes, FunctionComponent } from 'react';
-import classNames from 'classnames';
-import { CommonProps } from '../common';
-import { useEuiMarkStyles } from './mark_styles';
-export type EuiMarkProps = HTMLAttributes<HTMLElement> &
-  CommonProps & {
-    /**
-     * ReactNode to render as this component's content
-     */
-    children: string;
-  };
+import { css } from '@emotion/react';
+import { useEuiTheme, isDefaultTheme } from '../../services';
 
-export const EuiMark: FunctionComponent<EuiMarkProps> = ({
-  children,
-  className,
-  ...rest
-}) => {
-  const euiMarkStyles = useEuiMarkStyles();
-  const classes = classNames('euiMark', className);
-
-  return (
-    <mark css={euiMarkStyles} className={classes} {...rest}>
-      {children}
-    </mark>
-  );
+export const useEuiMarkStyles = () => {
+  const [theme] = useEuiTheme();
+  return css`
+    background-color: ${isDefaultTheme(theme.themeName)
+      ? 'transparent'
+      : theme.colors.euiFocusBackgroundColor};
+    font-weight: ${theme.type.euiFontWeightBold};
+    // Override the browser's black color.
+    // Can't use 'inherit' because the text to background color contrast may not be sufficient
+    color: ${theme.colors.euiTextColor};
+  `;
 };
