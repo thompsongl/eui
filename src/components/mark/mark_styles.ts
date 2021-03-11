@@ -21,14 +21,14 @@ import { css } from '@emotion/react';
 import { useEuiTheme, isDefaultTheme } from '../../services';
 
 export const useEuiMarkStyles = () => {
-  const [theme] = useEuiTheme();
+  const { euiTheme } = useEuiTheme();
   return css`
-    background-color: ${isDefaultTheme(theme.themeName)
+    background-color: ${isDefaultTheme(euiTheme.themeName)
       ? 'transparent'
-      : theme.colors.euiFocusBackgroundColor};
-    font-weight: ${theme.type.euiFontWeightBold};
+      : euiTheme.colors.euiFocusBackgroundColor};
+    font-weight: ${euiTheme.type.euiFontWeightBold};
     // Override the browser's black color.
     // Can't use 'inherit' because the text to background color contrast may not be sufficient
-    color: ${theme.colors.euiTextColor};
+    color: ${euiTheme.colors.euiTextColor};
   `;
 };
