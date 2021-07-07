@@ -2,17 +2,27 @@
 
 $guideSideNavWidth: 240px;
 $guideZLevelHighest: $euiZLevel9 + 1000;
+$elasticLogoTextLight: #FFF;
+$elasticLogoTextDark: #1C1E23;
 
 #guide { // sass-lint:disable-line no-ids
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - #{$euiHeaderHeightCompensation});
+  min-height: 100vh;
+
+  .euiBody--headerIsFixed & {
+    min-height: calc(100vh - #{$euiHeaderHeightCompensation});
+  }
 }
 
 @include euiHeaderAffordForFixed;
 
 .euiBody--headerIsFixed--double {
   @include euiHeaderAffordForFixed($euiHeaderHeightCompensation * 2);
+
+  #guide { // sass-lint:disable-line no-ids
+    min-height: calc(100vh - #{$euiHeaderHeightCompensation * 2});
+  }
 
   .euiHeader:not(.euiHeader--fixed) {
     // Force headers below the full screen.
@@ -22,6 +32,7 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
 }
 
 .guideSideNav {
+  @include euiSideNavEmbellish;
   min-width: $guideSideNavWidth;
 }
 
@@ -32,7 +43,7 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
 
 .guideSideNav__search {
   flex-shrink: 0;
-  padding: $euiSizeL;
+  padding: $euiSizeS $euiSizeS $euiSize;
 }
 
 .guideSideNav__item {
@@ -203,33 +214,6 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
   height: 1px;
 }
 
-.guideFullScreenOverlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  z-index: $euiZHeader + 1;
-  overflow: auto;
-
-  &--withHeader {
-    top: $euiHeaderHeightCompensation;
-    bottom: 0;
-    height: auto;
-    z-index: $euiZHeader - 1;
-    display: flex;
-    flex-direction: column;
-
-    .euiPageSideBar--sticky {
-      top: 0;
-    }
-  }
-}
-
-.guideBody--overflowHidden {
-  overflow: hidden;
-}
-
 .guideDemo__notificationEventCircleIndicator {
   display: inline-block;
   width: $euiSize;
@@ -341,6 +325,10 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
     padding: 0;
     border-top: $euiBorderThin;
   }
+
+  .guideSideNav__search {
+    padding: $euiSizeS;
+  }
 }
 
 .guideHomePage__blockformCard {
@@ -361,33 +349,26 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
   }
 }
 
-.guideHomePage__illustrationLightShade {
-  fill: $euiColorLightShade;
-}
+.guideHomePage__illustration {
+  @include euiBreakpoint('s', 'm') {
+    justify-content: center;
+  }
 
-.guideHomePage__illustrationEmptyShade {
-  fill: $euiColorEmptyShade;
-}
-
-.guideHomePage__illustrationDots,
-.guideHomePage__illustrationComponents {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .guideHomePage__illustrationEffect {
   display: block;
-  height: auto;
   position: relative;
-  width: auto;
 
-  .guideHomePage__illustrationEffectParts {
-    height: auto;
+  .guideHomePage__illustrationEffectSVG {
     transform: perspective(1600px);
     transform-style: preserve-3d;
     transition: all .3s ease-in-out;
     width: 100%;
+    height: auto;
 
     &:before {
       content: '';
@@ -400,18 +381,6 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
     }
   }
 
-  .guideHomePage__illustrationEffectPartsDots,
-  .guideHomePage__illustrationEffectPartsComps {
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: translateZ(16px) scale(.9);
-    transition: all .4s ease;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-
   .guideHomePage__illustrationTopLeftCorner {
     height: 50%;
     left: 0;
@@ -420,12 +389,9 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
     width: 50%;
     z-index: 300;
 
-    &:hover ~ .guideHomePage__illustrationEffectParts {
+    &:hover ~ .guideHomePage__illustrationEffectSVG {
       transform: perspective(1600px) rotateX(-5deg) rotateY(5deg);
 
-      .guideHomePage__illustrationEffectPartsDots {
-        transform: translate3d(-.1px, -.1px, 16px) scale(.9);
-      }
     }
   }
 
@@ -437,12 +403,8 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
     width: 50%;
     z-index: 300;
 
-    &:hover ~ .guideHomePage__illustrationEffectParts  {
+    &:hover ~ .guideHomePage__illustrationEffectSVG  {
       transform: perspective(1600px) rotateX(-5deg) rotateY(-5deg);
-
-      .guideHomePage__illustrationEffectPartsDots {
-        transform: translate3d(.1px, -.1px, 16px) scale(.9);
-      }
     }
   }
 
@@ -454,12 +416,8 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
     width: 50%;
     z-index: 300;
 
-    &:hover ~ .guideHomePage__illustrationEffectParts {
+    &:hover ~ .guideHomePage__illustrationEffectSVG {
       transform: perspective(1600px) rotateX(5deg) rotateY(5deg);
-
-      .guideHomePage__illustrationEffectPartsDots {
-        transform: translate3d(-.1px, .1px, 1px) scale(.9);
-      }
     }
   }
 
@@ -471,13 +429,36 @@ $guideZLevelHighest: $euiZLevel9 + 1000;
     width: 50%;
     z-index: 300;
 
-    &:hover ~ .guideHomePage__illustrationEffectParts  {
+    &:hover ~ .guideHomePage__illustrationEffectSVG  {
       transform: perspective(1600px) rotateX(5deg) rotateY(-5deg);
-
-
-      .guideHomePage__illustrationEffectPartsDots {
-        transform: translate3d(.1px, .1px, 1px) scale(.9);
-      }
     }
 	}
+}
+
+.guideHome__footer {
+  display: flex;
+  align-items: center;
+}
+
+.guideHome__footerHeart {
+  color: $euiColorAccentText;
+}
+
+.guideHome__footerLogo {
+  // sass-lint:disable-block no-important
+  vertical-align: middle;
+  display: inline-block !important;
+  margin-bottom: 0 !important;
+  position: relative;
+  top: -1px;
+}
+
+.guideHome__footerLogoText {
+  fill: lightOrDarkTheme($elasticLogoTextDark, $elasticLogoTextLight);
+}
+
+.guideHome__hero {
+  > * {
+    padding: $euiSizeL;
+  }
 }
